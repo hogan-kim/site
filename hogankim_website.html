@@ -1,0 +1,444 @@
+<title>Hogan Kim</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap">
+<style>
+/* Layout: profile card on the left (sticky on desktop), pill tabs and panels on the right. Fairway-tinted ground, Masters gold accent. */
+:root{
+  --bg:#e9f1ea;
+  --panel:#f3f8f3;
+  --card:#ffffff;
+  --fg:#0f2418;
+  --muted:#5f7466;
+  --soft:#86998c;
+  --line:#d3e0d5;
+  --chip:#e6efe7;
+  --green:#1d5c3a;
+  --gold:#a8792a;
+  --font:"Inter",-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1610;--panel:#101e16;--card:#15261c;--fg:#e8f0ea;--muted:#9fb3a5;--soft:#74897a;
+    --line:#24392c;--chip:#1b2e22;--green:#4fa274;--gold:#d3a24d;color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1610;--panel:#101e16;--card:#15261c;--fg:#e8f0ea;--muted:#9fb3a5;--soft:#74897a;
+  --line:#24392c;--chip:#1b2e22;--green:#4fa274;--gold:#d3a24d;color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
+
+.shell{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px}
+.frame{display:grid;grid-template-columns:340px 1fr;background:var(--panel);border:1px solid var(--line);border-radius:24px;overflow:hidden;min-height:calc(100vh - 48px)}
+@media (max-width:860px){.frame{grid-template-columns:1fr;min-height:0}}
+
+/* sidebar */
+.side{background:var(--card);border-right:1px solid var(--line);padding:44px 32px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px}
+@media (min-width:861px){.side-inner{position:sticky;top:24px}}
+@media (max-width:860px){.side{border-right:0;border-bottom:1px solid var(--line);padding:32px 20px}}
+.side-inner{width:100%;display:flex;flex-direction:column;align-items:center;gap:14px}
+.avatar{width:148px;height:148px;border-radius:50%;border:4px solid var(--line);background:linear-gradient(160deg,var(--chip),var(--green));display:grid;place-items:center;color:#fff;font-size:12px;font-weight:500;padding:16px;margin-bottom:8px}
+.name{font-size:30px;font-weight:700}
+.role{font-size:14px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.welcome{font-style:italic;color:var(--soft);font-size:17px;margin-bottom:10px}
+.box{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 18px;text-align:left}
+.box-row{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.label{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.switch{position:relative;width:56px;height:30px;border-radius:999px;border:0;background:var(--line);cursor:pointer;padding:0;flex:none}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:left .18s}
+.switch[aria-checked="true"]{background:var(--gold)}
+.switch[aria-checked="true"]::after{left:29px}
+.switch:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.game{margin-top:14px}
+.game canvas{display:block;width:100%;height:190px;border-radius:10px;cursor:pointer;touch-action:none}
+.game-stats{display:flex;justify-content:space-between;margin-top:10px;font-size:13px;color:var(--muted)}
+.game-stats b{color:var(--fg);font-variant-numeric:tabular-nums}
+.meter{height:6px;background:var(--line);border-radius:999px;margin-top:10px;overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:var(--gold)}
+.game-msg{font-size:13px;color:var(--soft);margin-top:8px;min-height:2.6em}
+.contact{display:flex;gap:10px;width:100%;margin-top:4px}
+.contact a{flex:1;text-align:center;padding:11px 0;border-radius:12px;border:1px solid var(--line);text-decoration:none;font-weight:600;font-size:15px;background:var(--card)}
+.contact a.primary{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.contact a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* main */
+.main{min-width:0;display:flex;flex-direction:column}
+.tabs{display:flex;gap:8px;padding:22px 40px;border-bottom:1px solid var(--line);flex-wrap:wrap;position:sticky;top:env(safe-area-inset-top,0px);background:var(--panel);z-index:2}
+@media (max-width:860px){.tabs{padding:14px 16px}}
+.tabs button{font:inherit;font-size:17px;font-weight:500;padding:10px 22px;border-radius:999px;border:0;background:transparent;color:var(--muted);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--fg);color:var(--bg)}
+.tabs button:hover{color:var(--fg)}
+.tabs button[aria-selected="true"]:hover{color:var(--bg)}
+.tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.panel{padding:48px 40px 64px}
+@media (max-width:860px){.panel{padding:32px 16px 48px}}
+.panel h2{font-size:clamp(34px,4.6vw,52px);font-weight:800;margin-bottom:36px}
+
+.divider{display:flex;align-items:center;gap:18px;margin:8px 0 22px}
+.divider::before{content:"";flex:1;height:1px;background:var(--line)}
+.divider span{font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--soft)}
+
+/* projects */
+.proj{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;margin-bottom:36px}
+.proj .shot{aspect-ratio:16/8;max-width:100%;background:linear-gradient(135deg,var(--green),#0b2014);display:grid;place-items:center;color:#cfe3d5;font-size:13px}
+.proj .body{padding:24px 26px 26px;display:grid;gap:10px}
+.proj h3{font-size:26px;font-weight:700}
+.proj .meta{display:flex;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+.proj .meta b{color:var(--fg);font-weight:600}
+.proj p{margin:0;max-width:66ch;color:var(--muted)}
+.proj a.go{font-weight:600;color:var(--green);text-decoration:none;font-size:15px}
+.proj a.go:hover{text-decoration:underline}
+
+/* job radar preview */
+.sheet{background:var(--card);border-bottom:1px solid var(--line)}
+.sheet-bar{display:flex;align-items:center;gap:12px;padding:12px 18px;background:var(--fg);color:var(--bg);font-size:14px;font-weight:600}
+.sheet-bar .dots{display:flex;gap:6px}
+.sheet-bar .dots i{width:10px;height:10px;border-radius:50%;background:var(--soft);opacity:.6}
+.sheet-bar .live{margin-left:auto;font-weight:500;font-size:13px;opacity:.75}
+.sheet-stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
+.sheet-stats div{padding:16px 18px;border-right:1px solid var(--line);display:grid;gap:2px}
+.sheet-stats div:last-child{border-right:0}
+.sheet-stats b{font-size:26px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.sheet-stats span{font-size:12px;color:var(--muted)}
+@media (max-width:560px){.sheet-stats{grid-template-columns:1fr 1fr}.sheet-stats div:nth-child(2){border-right:0}.sheet-stats div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+.sheet-scroll{overflow-x:auto}
+.sheet table{width:100%;min-width:640px;border-collapse:collapse;font-size:14px}
+.sheet th{text-align:left;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);padding:12px 18px;border-bottom:1px solid var(--line)}
+.sheet td{padding:12px 18px;border-bottom:1px solid var(--line);white-space:nowrap}
+.sheet tr:last-child td{border-bottom:0}
+.sheet tbody tr:nth-child(even){background:var(--panel)}
+.sheet td.co{font-weight:600}
+.sheet td.pay,.sheet td.date{font-variant-numeric:tabular-nums}
+.sheet td.date{color:var(--muted)}
+.sheet td.na{color:var(--soft)}
+.sheet .new{display:inline-block;margin-left:8px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);border-radius:999px;padding:1px 7px;vertical-align:1px}
+
+/* experience */
+.subtabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.subtabs button{font:inherit;font-size:14px;font-weight:600;padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--muted);cursor:pointer}
+.subtabs button[aria-selected="true"]{border-color:var(--gold);color:var(--gold)}
+.subtabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.jobs{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:1000px){.jobs{grid-template-columns:1fr}}
+.job{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;grid-template-columns:1fr auto;gap:4px 14px;align-content:start;min-width:0}
+.job .t{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+.job h3{font-size:21px;font-weight:700}
+.job .when{font-size:13px;color:var(--soft)}
+.job .logo{grid-row:1/4;grid-column:2;width:52px;height:52px;border-radius:12px;background:var(--chip);display:grid;place-items:center;font-weight:700;color:var(--green);font-size:15px}
+.job p{grid-column:1/-1;margin:10px 0 0;color:var(--muted);font-size:15px}
+.wip{border-style:dashed;background:transparent}
+.tools{margin-top:40px}
+.tools .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.tools span{font-size:14px;padding:7px 13px;border-radius:999px;background:var(--card);border:1px solid var(--line)}
+
+/* fun */
+.fun-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+@media (max-width:1000px){.fun-grid{grid-template-columns:1fr}}
+.fun{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;gap:8px;min-width:0}
+.fun .rank{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+.fun h3{font-size:20px;font-weight:700}
+.fun .when{font-size:13px;color:var(--soft)}
+.fun p{margin:0;color:var(--muted);font-size:15px}
+
+/* about */
+.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px}
+.photos div{aspect-ratio:4/5;max-width:100%;border-radius:16px;background:linear-gradient(170deg,var(--chip),var(--green));display:grid;place-items:end start;padding:12px;color:#fff;font-size:12px}
+@media (max-width:560px){.photos{grid-template-columns:1fr 1fr}.photos div:last-child{display:none}}
+.bio{font-size:18px;max-width:60ch;margin:0 0 36px}
+.about-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:36px 48px}
+@media (max-width:1000px){.about-grid{grid-template-columns:1fr}}
+.about-grid h4{margin:0 0 12px;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.kv{display:grid;grid-template-columns:110px 1fr;gap:8px 14px;font-size:15px}
+.kv dt{color:var(--soft)}
+.kv dd{margin:0}
+ol.rank-list{list-style:none;margin:0;padding:0;font-size:15px}
+ol.rank-list li{display:flex;gap:12px;padding:7px 0;border-bottom:1px solid var(--line)}
+ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-nums}
+.edit{color:var(--gold);font-size:12px;font-weight:600}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="shell">
+<div class="frame">
+
+<aside class="side">
+  <div class="side-inner">
+    <div class="avatar">your headshot</div>
+    <div class="name">Hogan Kim</div>
+    <div class="role">Product &amp; Strategy</div>
+    <div class="welcome">welcome to my home course!</div>
+
+    <div class="box">
+      <div class="box-row">
+        <span class="label">Putting green</span>
+        <button class="switch" id="sw" role="switch" aria-checked="true" aria-label="Show putting green"></button>
+      </div>
+      <div class="game" id="game">
+        <canvas id="putt" tabindex="0" aria-label="Putting game. Hold to load power, release to putt."></canvas>
+        <div class="meter"><i id="power"></i></div>
+        <div class="game-stats"><span>putts <b id="putts">0</b></span><span>made <b id="made">0</b></span><span>streak <b id="streak">0</b></span></div>
+        <div class="game-msg" id="msg">hold to load power, let go to putt. 30 ft.</div>
+      </div>
+    </div>
+
+    <div class="contact">
+      <a class="primary" href="mailto:hogankim42@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/hogankim/">LinkedIn</a>
+    </div>
+  </div>
+</aside>
+
+<div class="main">
+  <nav class="tabs" role="tablist">
+    <button role="tab" id="t-proj" aria-controls="p-proj" aria-selected="true">Projects</button>
+    <button role="tab" id="t-exp" aria-controls="p-exp" aria-selected="false">Experience</button>
+    <button role="tab" id="t-fun" aria-controls="p-fun" aria-selected="false">Fun</button>
+    <button role="tab" id="t-about" aria-controls="p-about" aria-selected="false">About Me</button>
+  </nav>
+
+  <section class="panel" id="p-proj" role="tabpanel" aria-labelledby="t-proj">
+    <h2>Personal Projects</h2>
+
+    <div class="divider"><span>Automation</span></div>
+    <article class="proj">
+      <div class="sheet" role="img" aria-label="Sample of new roles Job Radar found">
+        <div class="sheet-bar"><span class="dots"><i></i><i></i><i></i></span><span>job radar</span><span class="live">runs every morning</span></div>
+        <div class="sheet-stats">
+          <div><b>32</b><span>companies watched</span></div>
+          <div><b>4</b><span>job boards</span></div>
+          <div><b>150+</b><span>roles found</span></div>
+          <div><b>v7</b><span>current build</span></div>
+        </div>
+        <div class="sheet-scroll">
+          <table>
+            <thead><tr><th>Company</th><th>Role</th><th>Location</th><th>Pay</th><th>Added</th></tr></thead>
+            <tbody>
+              <tr><td class="co">Mercor<span class="new">new</span></td><td>Strategic Project Associate</td><td>San Francisco</td><td class="pay">$120K</td><td class="date">Aug 13</td></tr>
+              <tr><td class="co">Evergreen Services<span class="new">new</span></td><td>Investment Analyst</td><td>San Francisco</td><td class="pay">$165K</td><td class="date">Aug 13</td></tr>
+              <tr><td class="co">Deloitte</td><td>Analyst, Business Strategy</td><td>Costa Mesa / San Jose</td><td class="pay">$100K</td><td class="date">Aug 1</td></tr>
+              <tr><td class="co">JPMorganChase</td><td>AWM Risk Analyst Program</td><td>SF / New York</td><td class="pay">$100K</td><td class="date">Jul 26</td></tr>
+              <tr><td class="co">Kearney</td><td>Business Analyst</td><td>San Francisco</td><td class="pay">$100K</td><td class="date">Jul 26</td></tr>
+              <tr><td class="co">Google</td><td>Customer Growth Associate</td><td>San Francisco</td><td class="pay">$72K to $100K</td><td class="date">Jul 21</td></tr>
+              <tr><td class="co">BlackRock</td><td>Global Product Program Analyst</td><td>New York</td><td class="na">not listed</td><td class="date">Jul 20</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="body">
+        <h3>Job Radar</h3>
+        <div class="meta"><span>Built <b>Aug 2026</b></span><span>For <b>me (and anyone job hunting)</b></span></div>
+        <p>got tired of checking 30 careers pages every morning. wrote an apps script that checks greenhouse, lever, ashby and workday for 32 companies daily and drops new 2027 roles into one sheet. on v7 now. found 150+ roles i actually applied to.</p>
+        <a class="go" href="#">see how it works →</a>
+      </div>
+    </article>
+
+    <div class="divider"><span>Front End</span></div>
+    <article class="proj">
+      <div class="shot">screenshot of the spero site</div>
+      <div class="body">
+        <h3>Spero Storefront</h3>
+        <div class="meta"><span>Built <b>2025</b></span><span>For <b>berkeley students</b></span></div>
+        <p>designed the whole site in figma and shipped it with our two web devs. every drop sells through it, and the preorder numbers decide how much we make next time.</p>
+        <a class="go" href="#">check out the site →</a>
+      </div>
+    </article>
+  </section>
+
+  <section class="panel" id="p-exp" role="tabpanel" aria-labelledby="t-exp" hidden>
+    <h2>Experience</h2>
+    <div class="subtabs" role="tablist">
+      <button role="tab" aria-selected="true" data-g="intern">Internships</button>
+      <button role="tab" aria-selected="false" data-g="lead">Leadership</button>
+      <button role="tab" aria-selected="false" data-g="ft">Full-time (working on it..)</button>
+    </div>
+
+    <div class="jobs" data-group="intern">
+      <div class="job">
+        <div class="t">Finance &amp; Ops Intern</div>
+        <h3>SVHai</h3>
+        <div class="when">May 2026 – Aug 2026</div>
+        <div class="logo">SV</div>
+        <p>priced an ai voice product from scratch. caught a 41% cost error and built the model they're raising $230K to $6.1M on.</p>
+      </div>
+      <div class="job">
+        <div class="t">Business Analyst Intern</div>
+        <h3>Boring Deco</h3>
+        <div class="when">May 2025 – Aug 2025</div>
+        <div class="logo">BD</div>
+        <p>turned power bi sales data into the pitch that got us into 40 sprouts stores. also killed ~260 hrs a year of manual entry.</p>
+      </div>
+    </div>
+
+    <div class="jobs" data-group="lead" hidden>
+      <div class="job">
+        <div class="t">President</div>
+        <h3>Spero</h3>
+        <div class="when">Apr 2024 – Present</div>
+        <div class="logo">SP</div>
+        <p>took over with $200 and one drop a year. now 3 drops a semester, $3,500+ in sales, 14 people.</p>
+      </div>
+      <div class="job">
+        <div class="t">Founder</div>
+        <h3>HK Clones</h3>
+        <div class="when">Apr 2020 – Jul 2024</div>
+        <div class="logo">HK</div>
+        <p>sold custom lego minifigs on ebay + instagram. grew it to $25K in revenue at a 75% margin.</p>
+      </div>
+    </div>
+
+    <div class="jobs" data-group="ft" hidden>
+      <div class="job wip">
+        <div class="t">Product</div>
+        <h3>???</h3>
+        <div class="when">Summer 2027</div>
+        <div class="logo">?</div>
+        <p>looking for apm / product roles starting 2027. if that's you, hit the email button.</p>
+      </div>
+    </div>
+
+    <div class="tools">
+      <div class="label">Tools</div>
+      <div class="row">
+        <span>Claude</span><span>Excel</span><span>Figma</span><span>Google Apps Script</span><span>Jira</span><span>Linear</span><span>Power BI</span><span>Python</span><span>QuickBooks</span><span>Rev.io</span><span>SQL</span><span>Stripe</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="p-fun" role="tabpanel" aria-labelledby="t-fun" hidden>
+    <h2>Golf, mostly.</h2>
+    <div class="fun-grid">
+      <div class="fun">
+        <div class="rank">Top 1% in California</div>
+        <h3>Amateur ranking</h3>
+        <div class="when">2023</div>
+        <p>picked up golf freshman year of high school. got down to a 4 handicap.</p>
+      </div>
+      <div class="fun">
+        <div class="rank">CIF State</div>
+        <h3>Individuals qualifier</h3>
+        <div class="when">High school</div>
+        <p>made state individuals. wanted to play d1, didn't happen, still glad i chased it.</p>
+      </div>
+      <div class="fun">
+        <div class="rank">1st seed, back to back</div>
+        <h3>Varsity golf</h3>
+        <div class="when">2019 – 2023</div>
+        <p>helped get the team to the top seed in league two years in a row.</p>
+      </div>
+      <div class="fun">
+        <div class="rank">Fantasy football</div>
+        <h3>Yahoo league</h3>
+        <div class="when">every fall</div>
+        <p>run on flock fantasy, walter picks and sal vetri. <span class="edit">[add your record]</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="p-about" role="tabpanel" aria-labelledby="t-about" hidden>
+    <h2>About Me</h2>
+    <div class="photos">
+      <div>golf pic</div>
+      <div>spero pic</div>
+      <div>friends pic</div>
+    </div>
+    <p class="bio">oc kid, berkeley econ + data science. love golf, football, my friends, streetwear, and listening to markets podcasts way too early in the morning.</p>
+    <div class="about-grid">
+      <div>
+        <h4>Following</h4>
+        <dl class="kv">
+          <dt>Golf</dt><dd><span class="edit">[your guy]</span></dd>
+          <dt>Football</dt><dd><span class="edit">[your team]</span></dd>
+          <dt>Basketball</dt><dd><span class="edit">[your team]</span></dd>
+          <dt>Markets</dt><dd>Prof G Markets</dd>
+        </dl>
+      </div>
+      <div>
+        <h4>Current reads</h4>
+        <dl class="kv">
+          <dt>Investing</dt><dd><span class="edit">[book]</span></dd>
+          <dt>Fun</dt><dd><span class="edit">[book]</span></dd>
+        </dl>
+      </div>
+      <div>
+        <h4>Golf GOATs <span class="edit">[your list]</span></h4>
+        <ol class="rank-list">
+          <li><span>1</span>Tiger Woods</li>
+          <li><span>2</span>Jack Nicklaus</li>
+          <li><span>3</span>Ben Hogan</li>
+          <li><span>4</span>Arnold Palmer</li>
+          <li><span>5</span>Phil Mickelson</li>
+        </ol>
+      </div>
+      <div>
+        <h4>Best right now <span class="edit">[your list]</span></h4>
+        <ol class="rank-list">
+          <li><span>1</span>Scottie Scheffler</li>
+          <li><span>2</span>Rory McIlroy</li>
+          <li><span>3</span>Xander Schauffele</li>
+          <li><span>4</span>Ludvig Åberg</li>
+          <li><span>5</span>Collin Morikawa</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+</div>
+
+</div>
+</div>
+
+<script>
+(function(){
+  // main tabs
+  var tabs=document.querySelectorAll('.tabs [role=tab]');
+  tabs.forEach(function(t){t.addEventListener('click',function(){
+    tabs.forEach(function(o){o.setAttribute('aria-selected','false');document.getElementById(o.getAttribute('aria-controls')).hidden=true;});
+    t.setAttribute('aria-selected','true');document.getElementById(t.getAttribute('aria-controls')).hidden=false;
+  });});
+  // experience subtabs
+  var subs=document.querySelectorAll('.subtabs [role=tab]');
+  subs.forEach(function(s){s.addEventListener('click',function(){
+    subs.forEach(function(o){o.setAttribute('aria-selected','false');});
+    s.setAttribute('aria-selected','true');
+    document.querySelectorAll('.jobs').forEach(function(g){g.hidden=g.getAttribute('data-group')!==s.getAttribute('data-g');});
+  });});
+  // toggle
+  var sw=document.getElementById('sw'),game=document.getElementById('game');
+  sw.addEventListener('click',function(){var on=sw.getAttribute('aria-checked')!=='true';sw.setAttribute('aria-checked',on);game.hidden=!on;if(on)size();});
+
+  // putting green
+  var cv=document.getElementById('putt'),ctx=cv.getContext('2d');
+  var powerEl=document.getElementById('power'),msg=document.getElementById('msg');
+  var putts=0,made=0,streak=0,charging=false,power=0,chargeT=null,rolling=false;
+  var W=0,H=0,ball={x:0,y:0},hole={x:0,y:0},show=true;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function tok(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+  function size(){var r=cv.getBoundingClientRect();if(!r.width)return;var d=window.devicePixelRatio||1;W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);hole={x:W/2,y:40};ball={x:W/2,y:H-30};draw();}
+  function draw(){
+    var g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#174a2f');g.addColorStop(1,'#2a7a4c');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    ctx.strokeStyle='rgba(255,255,255,0.06)';ctx.lineWidth=14;for(var i=-H;i<W+H;i+=28){ctx.beginPath();ctx.moveTo(i,0);ctx.lineTo(i+H,H);ctx.stroke();}
+    ctx.fillStyle='#08170e';ctx.beginPath();ctx.arc(hole.x,hole.y,8,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle='#f5f5f0';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(hole.x,hole.y);ctx.lineTo(hole.x,hole.y-34);ctx.stroke();
+    ctx.fillStyle=tok('--gold')||'#c9a24d';ctx.beginPath();ctx.moveTo(hole.x,hole.y-34);ctx.lineTo(hole.x+18,hole.y-28);ctx.lineTo(hole.x,hole.y-22);ctx.closePath();ctx.fill();
+    if(show){ctx.fillStyle='rgba(0,0,0,0.25)';ctx.beginPath();ctx.ellipse(ball.x+2,ball.y+3,6,3.5,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(ball.x,ball.y,5.5,0,Math.PI*2);ctx.fill();}
+  }
+  function stats(){document.getElementById('putts').textContent=putts;document.getElementById('made').textContent=made;document.getElementById('streak').textContent=streak;}
+  function start(e){if(rolling)return;e.preventDefault();charging=true;power=0;var t0=performance.now();
+    (function tick(now){if(!charging)return;power=Math.min(100,(now-t0)/1400*100);powerEl.style.width=power+'%';chargeT=requestAnimationFrame(tick);})(t0);}
+  function release(){if(!charging)return;charging=false;cancelAnimationFrame(chargeT);putt(power);}
+  function putt(p){
+    putts++;rolling=true;var full=ball.y-hole.y,travel=full*(p/100)*1.3,y0=ball.y,y1=y0-travel,dur=reduce?0:800+travel*2,t0=performance.now();
+    function fin(){var off=Math.abs(y1-hole.y),ft=off/full*30,sunk=off<8;
+      if(sunk){show=false;made++;streak++;msg.textContent=streak>2?'ok you\'re cooking. '+streak+' in a row.':'drained it.';}
+      else{streak=0;msg.textContent=(y1<hole.y?'way past it. ':'left it short. ')+ft.toFixed(1)+' ft away.';}
+      stats();draw();setTimeout(function(){show=true;ball.y=y0;rolling=false;powerEl.style.width='0';draw();},sunk?1000:1300);}
+    if(!dur){ball.y=Math.max(10,y1);draw();fin();return;}
+    (function roll(now){var k=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-k,3);ball.y=Math.max(10,y0-travel*e);draw();if(k<1)requestAnimationFrame(roll);else fin();})(t0);
+  }
+  cv.addEventListener('pointerdown',start);window.addEventListener('pointerup',release);window.addEventListener('pointercancel',release);
+  cv.addEventListener('keydown',function(e){if(e.code==='Space'&&!charging)start(e);});cv.addEventListener('keyup',function(e){if(e.code==='Space')release();});
+  window.addEventListener('resize',size);size();stats();
+})();
+</script>
