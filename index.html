@@ -63,6 +63,7 @@ h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
 .contact a{flex:1;text-align:center;padding:11px 0;border-radius:12px;border:1px solid var(--line);text-decoration:none;font-weight:600;font-size:15px;background:var(--card)}
 .contact a.primary{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 .contact a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.email-text{font-size:14px;color:var(--muted);user-select:all}
 
 /* main */
 .main{min-width:0;display:flex;flex-direction:column}
@@ -129,6 +130,25 @@ h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
 .job .when{font-size:13px;color:var(--soft)}
 .job .logo{grid-row:1/4;grid-column:2;width:52px;height:52px;border-radius:12px;background:var(--chip);display:grid;place-items:center;font-weight:700;color:var(--green);font-size:15px}
 .job p{grid-column:1/-1;margin:10px 0 0;color:var(--muted);font-size:15px}
+.job .sub{font-size:14px;color:var(--muted)}
+.job.wide{grid-column:1/-1}
+.job .logo{grid-row:1/5}
+.chips{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.chips span{font-size:12.5px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--chip);color:var(--green);font-variant-numeric:tabular-nums}
+/* fantasy board */
+.ff{grid-column:1/-1;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px;min-width:0}
+.ff-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.ff-head h4{margin:0}
+.ff-week{font-size:13px;color:var(--soft)}
+.ff-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.ff-tabs button{font:inherit;font-size:14px;font-weight:700;padding:7px 16px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--muted);cursor:pointer}
+.ff-tabs button[aria-selected="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.ff-tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.ff-list{list-style:none;margin:0;padding:0}
+.ff-list li{display:flex;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);font-size:15px}
+.ff-list li:last-child{border-bottom:0}
+.ff-list .n{width:1.8em;color:var(--soft);font-variant-numeric:tabular-nums;font-weight:600}
+.ff-list li.tier{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);padding:14px 0 4px;border-bottom:0}
 .wip{border-style:dashed;background:transparent}
 .tools{margin-top:40px}
 .tools .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
@@ -168,7 +188,7 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
   <div class="side-inner">
     <div class="avatar">your headshot</div>
     <div class="name">Hogan Kim</div>
-    <div class="role">Product &amp; Strategy</div>
+    <div class="role">Strategy &amp; Finance</div>
     <div class="welcome">welcome to my home course!</div>
 
     <div class="box">
@@ -185,9 +205,10 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
     </div>
 
     <div class="contact">
-      <a class="primary" href="mailto:hogankim42@gmail.com">Email</a>
+      <a class="primary" id="email-btn" href="mailto:hogankim42@gmail.com">Email</a>
       <a href="https://www.linkedin.com/in/hogankim/">LinkedIn</a>
     </div>
+    <div class="email-text" id="email-text">hogankim42@gmail.com</div>
   </div>
 </aside>
 
@@ -250,25 +271,37 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
   <section class="panel" id="p-exp" role="tabpanel" aria-labelledby="t-exp" hidden>
     <h2>Experience</h2>
     <div class="subtabs" role="tablist">
-      <button role="tab" aria-selected="true" data-g="intern">Internships</button>
+      <button role="tab" aria-selected="true" data-g="intern">Work</button>
       <button role="tab" aria-selected="false" data-g="lead">Leadership</button>
       <button role="tab" aria-selected="false" data-g="ft">Full-time (working on it..)</button>
     </div>
 
     <div class="jobs" data-group="intern">
       <div class="job">
-        <div class="t">Finance &amp; Ops Intern</div>
+        <div class="t">Financial Planning &amp; Ops Intern</div>
         <h3>SVHai</h3>
+        <div class="sub">ai voice platform for telecom</div>
         <div class="when">May 2026 – Aug 2026</div>
         <div class="logo">SV</div>
-        <p>priced an ai voice product from scratch. caught a 41% cost error and built the model they're raising $230K to $6.1M on.</p>
+        <p>priced a brand new ai voice product from zero (4 tiers + usage), built the 9-scenario model they're fundraising on, and rebuilt billing across rev.io, stripe and quickbooks.</p>
+        <div class="chips"><span>41% cost error caught</span><span>$230K to $6.1M raise</span><span>119-product catalog</span></div>
       </div>
       <div class="job">
         <div class="t">Business Analyst Intern</div>
         <h3>Boring Deco</h3>
+        <div class="sub">cpg startup</div>
         <div class="when">May 2025 – Aug 2025</div>
         <div class="logo">BD</div>
-        <p>turned power bi sales data into the pitch that got us into 40 sprouts stores. also killed ~260 hrs a year of manual entry.</p>
+        <p>dug into our sprouts sales data in power bi and turned it into the pitch that opened a new retail channel. also automated the ceo's daily data entry.</p>
+        <div class="chips"><span>40 sprouts stores</span><span>260 hrs/yr saved</span><span>35% lower packaging cost</span></div>
+      </div>
+      <div class="job wide">
+        <div class="t">Crew Member <span class="edit">[your title]</span></div>
+        <h3>McDonald's</h3>
+        <div class="sub">first job</div>
+        <div class="when"><span class="edit">[dates]</span></div>
+        <div class="logo">M</div>
+        <p>lunch rush and drive-thru. <span class="edit">[one line in your words: what it taught you]</span></p>
       </div>
     </div>
 
@@ -277,25 +310,29 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
         <div class="t">President</div>
         <h3>Spero</h3>
         <div class="when">Apr 2024 – Present</div>
+        <div class="sub">berkeley's largest student-run clothing brand</div>
         <div class="logo">SP</div>
-        <p>took over with $200 and one drop a year. now 3 drops a semester, $3,500+ in sales, 14 people.</p>
+        <p>took over with $200 and one drop a year. now 3 drops a semester, all funded by our own margins, with 14 people across design, eng, ops and marketing.</p>
+        <div class="chips"><span>$3,500+ revenue</span><span>8 drops</span><span>6 partner orgs, 3 campuses</span></div>
       </div>
       <div class="job">
         <div class="t">Founder</div>
         <h3>HK Clones</h3>
         <div class="when">Apr 2020 – Jul 2024</div>
+        <div class="sub">d2c e-commerce</div>
         <div class="logo">HK</div>
-        <p>sold custom lego minifigs on ebay + instagram. grew it to $25K in revenue at a 75% margin.</p>
+        <p>sold custom lego minifigs on ebay + instagram. renegotiated overseas suppliers and timed drops to what buyers were asking for.</p>
+        <div class="chips"><span>$25K revenue</span><span>+225% yoy</span><span>75% gross margin</span></div>
       </div>
     </div>
 
     <div class="jobs" data-group="ft" hidden>
       <div class="job wip">
-        <div class="t">Product</div>
+        <div class="t">Strategy · Finance · Product</div>
         <h3>???</h3>
         <div class="when">Summer 2027</div>
         <div class="logo">?</div>
-        <p>looking for apm / product roles starting 2027. if that's you, hit the email button.</p>
+        <p>looking for strategy, finance, ops and product roles starting summer 2027. if that's you, hit the email button.</p>
       </div>
     </div>
 
@@ -362,25 +399,15 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
           <dt>Fun</dt><dd><span class="edit">[book]</span></dd>
         </dl>
       </div>
-      <div>
-        <h4>Golf GOATs <span class="edit">[your list]</span></h4>
-        <ol class="rank-list">
-          <li><span>1</span>Tiger Woods</li>
-          <li><span>2</span>Jack Nicklaus</li>
-          <li><span>3</span>Ben Hogan</li>
-          <li><span>4</span>Arnold Palmer</li>
-          <li><span>5</span>Phil Mickelson</li>
-        </ol>
-      </div>
-      <div>
-        <h4>Best right now <span class="edit">[your list]</span></h4>
-        <ol class="rank-list">
-          <li><span>1</span>Scottie Scheffler</li>
-          <li><span>2</span>Rory McIlroy</li>
-          <li><span>3</span>Xander Schauffele</li>
-          <li><span>4</span>Ludvig Åberg</li>
-          <li><span>5</span>Collin Morikawa</li>
-        </ol>
+      <div class="ff">
+        <div class="ff-head"><h4>My fantasy rankings</h4><span class="ff-week">rest of season · week 7 <span class="edit">[your takes]</span></span></div>
+        <div class="ff-tabs" role="tablist">
+          <button role="tab" aria-selected="true" data-pos="QB">QB</button>
+          <button role="tab" aria-selected="false" data-pos="RB">RB</button>
+          <button role="tab" aria-selected="false" data-pos="WR">WR</button>
+          <button role="tab" aria-selected="false" data-pos="TE">TE</button>
+        </div>
+        <ol class="ff-list" id="ff-list"></ol>
       </div>
     </div>
   </section>
@@ -404,6 +431,29 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
     s.setAttribute('aria-selected','true');
     document.querySelectorAll('.jobs').forEach(function(g){g.hidden=g.getAttribute('data-group')!==s.getAttribute('data-g');});
   });});
+  // fantasy board. edit names and tiers here: [name, tier]
+  var FF={
+    QB:[['Josh Allen',1],['Lamar Jackson',1],['Drake Maye',2],['Jalen Hurts',2],['Jayden Daniels',2],['Joe Burrow',3]],
+    RB:[['Bijan Robinson',1],['Jahmyr Gibbs',1],['Saquon Barkley',2],['Christian McCaffrey',2],["De'Von Achane",2],['Derrick Henry',3]],
+    WR:[["Ja'Marr Chase",1],['Jaxon Smith-Njigba',1],['Puka Nacua',1],['Justin Jefferson',2],['Amon-Ra St. Brown',2],['CeeDee Lamb',2]],
+    TE:[['Trey McBride',1],['Brock Bowers',1],['George Kittle',2],['Sam LaPorta',2],['Tucker Kraft',3],['Travis Kelce',3]]
+  };
+  var ffList=document.getElementById('ff-list'),ffTabs=document.querySelectorAll('.ff-tabs button');
+  function ffRender(pos){
+    ffList.innerHTML='';var last=0;
+    FF[pos].forEach(function(p,i){
+      if(p[1]!==last){var t=document.createElement('li');t.className='tier';t.textContent='tier '+p[1];ffList.appendChild(t);last=p[1];}
+      var li=document.createElement('li');var n=document.createElement('span');n.className='n';n.textContent=pos+(i+1);
+      li.appendChild(n);li.appendChild(document.createTextNode(p[0]));ffList.appendChild(li);
+    });
+  }
+  ffTabs.forEach(function(b){b.addEventListener('click',function(){ffTabs.forEach(function(o){o.setAttribute('aria-selected','false');});b.setAttribute('aria-selected','true');ffRender(b.getAttribute('data-pos'));});});
+  ffRender('QB');
+  // email: copy address on click so it works even when the visitor's mail app is set to another account
+  var eb=document.getElementById('email-btn'),et=document.getElementById('email-text');
+  eb.addEventListener('click',function(){
+    try{navigator.clipboard.writeText('hogankim42@gmail.com').then(function(){et.textContent='copied hogankim42@gmail.com';setTimeout(function(){et.textContent='hogankim42@gmail.com';},2500);}).catch(function(){});}catch(e){}
+  });
   // toggle
   var sw=document.getElementById('sw'),game=document.getElementById('game');
   sw.addEventListener('click',function(){var on=sw.getAttribute('aria-checked')!=='true';sw.setAttribute('aria-checked',on);game.hidden=!on;if(on)size();});
