@@ -398,17 +398,16 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
       <div>
         <h4>Current reads</h4>
         <dl class="kv">
-          <dt>Investing</dt><dd><span class="edit">[book]</span></dd>
-          <dt>Fun</dt><dd><span class="edit">[book]</span></dd>
+          <dt>Investing</dt><dd><em>I Will Teach You to Be Rich</em>, Ramit Sethi</dd>
+          <dt>Fun</dt><dd><em>Expository Apologetics</em>, Voddie Baucham</dd>
         </dl>
       </div>
       <div class="ff">
-        <div class="ff-head"><h4>My fantasy rankings</h4><span class="ff-week">rest of season · week 7 <span class="edit">[your takes]</span></span></div>
+        <div class="ff-head"><h4>My fantasy rankings</h4><span class="ff-week">rest of season · week 7</span></div>
         <div class="ff-tabs" role="tablist">
           <button role="tab" aria-selected="true" data-pos="QB">QB</button>
           <button role="tab" aria-selected="false" data-pos="RB">RB</button>
           <button role="tab" aria-selected="false" data-pos="WR">WR</button>
-          <button role="tab" aria-selected="false" data-pos="TE">TE</button>
         </div>
         <ol class="ff-list" id="ff-list"></ol>
       </div>
@@ -436,16 +435,15 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
   });});
   // fantasy board. edit names and tiers here: [name, tier]
   var FF={
-    QB:[['Josh Allen',1],['Lamar Jackson',1],['Drake Maye',2],['Jalen Hurts',2],['Jayden Daniels',2],['Joe Burrow',3]],
-    RB:[['Bijan Robinson',1],['Jahmyr Gibbs',1],['Saquon Barkley',2],['Christian McCaffrey',2],["De'Von Achane",2],['Derrick Henry',3]],
-    WR:[["Ja'Marr Chase",1],['Jaxon Smith-Njigba',1],['Puka Nacua',1],['Justin Jefferson',2],['Amon-Ra St. Brown',2],['CeeDee Lamb',2]],
-    TE:[['Trey McBride',1],['Brock Bowers',1],['George Kittle',2],['Sam LaPorta',2],['Tucker Kraft',3],['Travis Kelce',3]]
+    QB:[['Josh Allen'],['Brock Purdy'],['Caleb Williams'],['Drake Maye'],['Joe Burrow']],
+    RB:[['Jahmyr Gibbs'],['Bijan Robinson'],['Kenneth Walker III'],['Jonathan Taylor'],['Christian McCaffrey']],
+    WR:[['Jaxon Smith-Njigba'],['Puka Nacua'],['Amon-Ra St. Brown'],['CeeDee Lamb'],["Ja'Marr Chase"]]
   };
   var ffList=document.getElementById('ff-list'),ffTabs=document.querySelectorAll('.ff-tabs button');
   function ffRender(pos){
     ffList.innerHTML='';var last=0;
     FF[pos].forEach(function(p,i){
-      if(p[1]!==last){var t=document.createElement('li');t.className='tier';t.textContent='tier '+p[1];ffList.appendChild(t);last=p[1];}
+      if(p[1]&&p[1]!==last){var t=document.createElement('li');t.className='tier';t.textContent='tier '+p[1];ffList.appendChild(t);last=p[1];}
       var li=document.createElement('li');var n=document.createElement('span');n.className='n';n.textContent=pos+(i+1);
       li.appendChild(n);li.appendChild(document.createTextNode(p[0]));ffList.appendChild(li);
     });
