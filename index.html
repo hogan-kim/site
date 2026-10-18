@@ -27,7 +27,8 @@
   --line:#24392c;--chip:#1b2e22;--green:#4fa274;--gold:#d3a24d;color-scheme:dark;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a,button,[role=tab],canvas{cursor:pointer}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M3 3l18 20' stroke='%23555' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M19 21c3-2 8-1 10 2s0 6-4 6-7-3-6-8z' fill='%23333'/%3E%3C/svg%3E") 3 3, auto;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
 a{color:inherit}
 h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
 
@@ -78,44 +79,26 @@ h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
 @media (max-width:860px){.panel{padding:32px 16px 48px}}
 .panel h2{font-size:clamp(34px,4.6vw,52px);font-weight:800;margin-bottom:36px}
 
-.divider{display:flex;align-items:center;gap:18px;margin:8px 0 22px}
-.divider::before{content:"";flex:1;height:1px;background:var(--line)}
-.divider span{font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--soft)}
 
 /* projects */
-.proj{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;margin-bottom:36px}
-.proj .shot{aspect-ratio:16/8;max-width:100%;background:linear-gradient(135deg,var(--green),#0b2014);display:grid;place-items:center;color:#cfe3d5;font-size:13px}
-.proj .body{padding:24px 26px 26px;display:grid;gap:10px}
-.proj h3{font-size:26px;font-weight:700}
-.proj .meta{display:flex;gap:16px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
-.proj .meta b{color:var(--fg);font-weight:600}
-.proj p{margin:0;max-width:66ch;color:var(--muted)}
-.proj a.go{font-weight:600;color:var(--green);text-decoration:none;font-size:15px}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:900px){.pgrid{grid-template-columns:1fr}}
+.proj{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.proj .shot{aspect-ratio:4/3;max-width:100%;overflow:hidden}
+.proj .shot.spero{background:#111;color:#fff;display:grid;place-items:center;font-size:12px;letter-spacing:.1em;text-transform:uppercase;opacity:.8}
+.proj .shot.spero img{display:block;width:100%;height:100%;object-fit:cover}
+.proj .shot.radar{background:var(--panel);border-bottom:1px solid var(--line);padding:14px;font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:var(--muted);line-height:1.8}
+.proj .shot.radar b{color:var(--fg);display:block;font-weight:600}
+.proj .shot.bill{background:linear-gradient(135deg,var(--green),#0b2014);display:grid;grid-template-columns:repeat(2,1fr);gap:8px;padding:22px;align-content:center}
+.proj .shot.bill span{background:rgba(255,255,255,.12);color:#cfe3d5;border-radius:8px;padding:12px 8px;font-size:12px;font-weight:600;text-align:center}
+.proj .body{padding:16px 18px 18px;display:grid;gap:7px;flex:1;align-content:start}
+.proj .kind{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+.proj h3{font-size:21px;font-weight:700}
+.proj .meta{font-size:13px;color:var(--muted)}
+.proj p{margin:0;color:var(--muted);font-size:14.5px}
+.proj .chips{margin-top:4px}
+.proj a.go{font-weight:600;color:var(--green);text-decoration:none;font-size:14px;margin-top:auto;padding-top:6px}
 .proj a.go:hover{text-decoration:underline}
-
-/* job radar preview */
-.sheet{background:var(--card);border-bottom:1px solid var(--line)}
-.sheet-bar{display:flex;align-items:center;gap:12px;padding:12px 18px;background:var(--fg);color:var(--bg);font-size:14px;font-weight:600}
-.sheet-bar .dots{display:flex;gap:6px}
-.sheet-bar .dots i{width:10px;height:10px;border-radius:50%;background:var(--soft);opacity:.6}
-.sheet-bar .live{margin-left:auto;font-weight:500;font-size:13px;opacity:.75}
-.sheet-stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
-.sheet-stats div{padding:16px 18px;border-right:1px solid var(--line);display:grid;gap:2px}
-.sheet-stats div:last-child{border-right:0}
-.sheet-stats b{font-size:26px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.sheet-stats span{font-size:12px;color:var(--muted)}
-@media (max-width:560px){.sheet-stats{grid-template-columns:1fr 1fr}.sheet-stats div:nth-child(2){border-right:0}.sheet-stats div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
-.sheet-scroll{overflow-x:auto}
-.sheet table{width:100%;min-width:640px;border-collapse:collapse;font-size:14px}
-.sheet th{text-align:left;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);padding:12px 18px;border-bottom:1px solid var(--line)}
-.sheet td{padding:12px 18px;border-bottom:1px solid var(--line);white-space:nowrap}
-.sheet tr:last-child td{border-bottom:0}
-.sheet tbody tr:nth-child(even){background:var(--panel)}
-.sheet td.co{font-weight:600}
-.sheet td.pay,.sheet td.date{font-variant-numeric:tabular-nums}
-.sheet td.date{color:var(--muted)}
-.sheet td.na{color:var(--soft)}
-.sheet .new{display:inline-block;margin-left:8px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);border-radius:999px;padding:1px 7px;vertical-align:1px}
 
 /* experience */
 .xp{list-style:none;margin:0;padding:0;display:grid;gap:14px}
@@ -210,51 +193,40 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
   </nav>
 
   <section class="panel" id="p-proj" role="tabpanel" aria-labelledby="t-proj">
-    <h2>Personal Projects</h2>
-
-    <div class="divider"><span>Automation</span></div>
-    <article class="proj">
-      <div class="sheet" role="img" aria-label="Sample of new roles Job Radar found">
-        <div class="sheet-bar"><span class="dots"><i></i><i></i><i></i></span><span>job radar</span><span class="live">runs every morning</span></div>
-        <div class="sheet-stats">
-          <div><b>32</b><span>companies watched</span></div>
-          <div><b>4</b><span>job boards</span></div>
-          <div><b>150+</b><span>roles found</span></div>
-          <div><b>v7</b><span>current build</span></div>
+    <h2>Projects</h2>
+    <div class="pgrid">
+      <article class="proj">
+        <div class="shot spero"><div><span>team photo coming</span></div></div>
+        <div class="body">
+          <div class="kind">Brand</div>
+          <h3>Spero</h3>
+          <div class="meta">Apr 2024 – Present</div>
+          <p>gospel-centered apparel at berkeley. i own the whole lifecycle: design in figma, manufacturing, the drop, marketing, the storefront. 8 drops so far, each one funded by the last.</p>
+          <div class="chips"><span>$3,500+ revenue</span><span>8 drops</span><span>14 people</span></div>
+          <a class="go" href="https://www.shopspero.org/">shopspero.org →</a>
         </div>
-        <div class="sheet-scroll">
-          <table>
-            <thead><tr><th>Company</th><th>Role</th><th>Location</th><th>Pay</th><th>Added</th></tr></thead>
-            <tbody>
-              <tr><td class="co">Mercor<span class="new">new</span></td><td>Strategic Project Associate</td><td>San Francisco</td><td class="pay">$120K</td><td class="date">Aug 13</td></tr>
-              <tr><td class="co">Evergreen Services<span class="new">new</span></td><td>Investment Analyst</td><td>San Francisco</td><td class="pay">$165K</td><td class="date">Aug 13</td></tr>
-              <tr><td class="co">Deloitte</td><td>Analyst, Business Strategy</td><td>Costa Mesa / San Jose</td><td class="pay">$100K</td><td class="date">Aug 1</td></tr>
-              <tr><td class="co">JPMorganChase</td><td>AWM Risk Analyst Program</td><td>SF / New York</td><td class="pay">$100K</td><td class="date">Jul 26</td></tr>
-              <tr><td class="co">Kearney</td><td>Business Analyst</td><td>San Francisco</td><td class="pay">$100K</td><td class="date">Jul 26</td></tr>
-              <tr><td class="co">Google</td><td>Customer Growth Associate</td><td>San Francisco</td><td class="pay">$72K to $100K</td><td class="date">Jul 21</td></tr>
-              <tr><td class="co">BlackRock</td><td>Global Product Program Analyst</td><td>New York</td><td class="na">not listed</td><td class="date">Jul 20</td></tr>
-            </tbody>
-          </table>
+      </article>
+      <article class="proj">
+        <div class="shot radar"><b>job radar · 32 companies · daily</b>+ Mercor — $120K<br>+ Evergreen — $165K<br>+ Deloitte — $100K<br>+ JPMorgan — $100K<br>= 150+ roles sourced · v7</div>
+        <div class="body">
+          <div class="kind">Automation</div>
+          <h3>Job Radar</h3>
+          <div class="meta">Aug 2026 · Google Apps Script</div>
+          <p>got tired of checking 30 careers pages every morning. wrote a script that checks greenhouse, lever, ashby and workday for 32 companies daily and drops new 2027 roles into one sheet.</p>
+          <div class="chips"><span>150+ roles</span><span>4 job boards</span><span>v7</span></div>
         </div>
-      </div>
-      <div class="body">
-        <h3>Job Radar</h3>
-        <div class="meta"><span>Built <b>Aug 2026</b></span><span>For <b>me (and anyone job hunting)</b></span></div>
-        <p>got tired of checking 30 careers pages every morning. wrote an apps script that checks greenhouse, lever, ashby and workday for 32 companies daily and drops new 2027 roles into one sheet. on v7 now. found 150+ roles i actually applied to.</p>
-        <a class="go" href="#">see how it works →</a>
-      </div>
-    </article>
-
-    <div class="divider"><span>Front End</span></div>
-    <article class="proj">
-      <div class="shot">screenshot of the spero site</div>
-      <div class="body">
-        <h3>Spero Storefront</h3>
-        <div class="meta"><span>Built <b>2025</b></span><span>For <b>berkeley students</b></span></div>
-        <p>designed the whole site in figma and shipped it with our two web devs. every drop sells through it, and the preorder numbers decide how much we make next time.</p>
-        <a class="go" href="#">check out the site →</a>
-      </div>
-    </article>
+      </article>
+      <article class="proj">
+        <div class="shot bill"><span>Starter</span><span>Growth</span><span>Scale</span><span>Usage</span></div>
+        <div class="body">
+          <div class="kind">Pricing</div>
+          <h3>SVHai Billing</h3>
+          <div class="meta">Summer 2026</div>
+          <p>priced an ai voice product that had no precedent: 4 tiers plus metered usage, off supplier costs i verified on live vendor pages. then keyed a 119-product catalog across rev.io, stripe and quickbooks so one record drives every invoice.</p>
+          <div class="chips"><span>4 tiers + usage</span><span>119 products</span><span>171 fixes</span></div>
+        </div>
+      </article>
+    </div>
   </section>
 
   <section class="panel" id="p-exp" role="tabpanel" aria-labelledby="t-exp" hidden>
