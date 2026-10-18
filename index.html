@@ -40,7 +40,7 @@ h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
 @media (min-width:861px){.side-inner{position:sticky;top:24px}}
 @media (max-width:860px){.side{border-right:0;border-bottom:1px solid var(--line);padding:32px 20px}}
 .side-inner{width:100%;display:flex;flex-direction:column;align-items:center;gap:14px}
-.avatar{width:148px;height:148px;border-radius:50%;border:4px solid var(--line);background:linear-gradient(160deg,var(--chip),var(--green));display:grid;place-items:center;color:#fff;font-size:12px;font-weight:500;padding:16px;margin-bottom:8px}
+.avatar{display:block;width:148px;height:148px;max-width:100%;border-radius:50%;border:4px solid var(--line);background:var(--chip);object-fit:cover;object-position:50% 30%;margin-bottom:8px}
 .name{font-size:30px;font-weight:700}
 .role{font-size:14px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
 .welcome{font-style:italic;color:var(--soft);font-size:17px;margin-bottom:10px}
@@ -164,9 +164,13 @@ h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
 .fun p{margin:0;color:var(--muted);font-size:15px}
 
 /* about */
-.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px}
-.photos div{aspect-ratio:4/5;max-width:100%;border-radius:16px;background:linear-gradient(170deg,var(--chip),var(--green));display:grid;place-items:end start;padding:12px;color:#fff;font-size:12px}
-@media (max-width:560px){.photos{grid-template-columns:1fr 1fr}.photos div:last-child{display:none}}
+.photos{display:grid;grid-template-columns:1fr 2fr;gap:14px;margin-bottom:26px}
+.photos figure{margin:0;position:relative;border-radius:16px;overflow:hidden;height:360px;background:var(--chip);min-width:0}
+.photos img{display:block;width:100%;height:100%;object-fit:cover}
+.photos .golf img{object-position:50% 45%}
+.photos .crew img{object-position:50% 70%}
+.photos figcaption{position:absolute;left:10px;bottom:10px;font-size:12px;font-weight:600;color:#fff;background:rgba(0,0,0,.5);padding:4px 10px;border-radius:999px}
+@media (max-width:640px){.photos{grid-template-columns:1fr}.photos figure{height:auto;aspect-ratio:4/3}.photos figure.golf{aspect-ratio:4/5}}
 .bio{font-size:18px;max-width:60ch;margin:0 0 36px}
 .about-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:36px 48px}
 @media (max-width:1000px){.about-grid{grid-template-columns:1fr}}
@@ -186,7 +190,7 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
 
 <aside class="side">
   <div class="side-inner">
-    <div class="avatar">your headshot</div>
+    <img class="avatar" src="images/headshot.jpg" alt="Hogan Kim" width="148" height="148">
     <div class="name">Hogan Kim</div>
     <div class="role">Strategy &amp; Finance</div>
     <div class="welcome">welcome to my home course!</div>
@@ -377,9 +381,8 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
   <section class="panel" id="p-about" role="tabpanel" aria-labelledby="t-about" hidden>
     <h2>About Me</h2>
     <div class="photos">
-      <div>golf pic</div>
-      <div>spero pic</div>
-      <div>friends pic</div>
+      <figure class="golf"><img src="images/golf.jpg" alt="Hogan mid-backswing on the tee" loading="lazy"><figcaption>on the tee</figcaption></figure>
+      <figure class="crew"><img src="images/friends.jpg" alt="Hogan and friends in Yosemite Valley" loading="lazy"><figcaption>yosemite</figcaption></figure>
     </div>
     <p class="bio">oc kid, berkeley econ + data science. love golf, football, my friends, streetwear, and listening to markets podcasts way too early in the morning.</p>
     <div class="about-grid">
