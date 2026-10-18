@@ -1,6 +1,6 @@
 <title>Hogan Kim</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap">
 <style>
 /* Layout: profile card on the left (sticky on desktop), pill tabs and panels on the right. Fairway-tinted ground, Masters gold accent. */
 :root{
@@ -14,7 +14,7 @@
   --chip:#e6efe7;
   --green:#1d5c3a;
   --gold:#a8792a;
-  --font:"Inter",-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+  --font:"Plus Jakarta Sans",-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -118,41 +118,26 @@ h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
 .sheet .new{display:inline-block;margin-left:8px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);border-radius:999px;padding:1px 7px;vertical-align:1px}
 
 /* experience */
-.subtabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
-.subtabs button{font:inherit;font-size:14px;font-weight:600;padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--muted);cursor:pointer}
-.subtabs button[aria-selected="true"]{border-color:var(--gold);color:var(--gold)}
-.subtabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.jobs{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-@media (max-width:1000px){.jobs{grid-template-columns:1fr}}
-.job{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;grid-template-columns:1fr auto;gap:4px 14px;align-content:start;min-width:0}
-.job .t{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
-.job h3{font-size:21px;font-weight:700}
-.job .when{font-size:13px;color:var(--soft)}
-.job .logo{grid-row:1/4;grid-column:2;width:52px;height:52px;border-radius:12px;background:var(--chip);display:grid;place-items:center;font-weight:700;color:var(--green);font-size:15px}
-.job p{grid-column:1/-1;margin:10px 0 0;color:var(--muted);font-size:15px}
-.job .sub{font-size:14px;color:var(--muted)}
-.job.wide{grid-column:1/-1}
-.job .logo{grid-row:1/5}
-.chips{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.xp{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.xp-item{display:grid;grid-template-columns:52px 1fr;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;min-width:0}
+.xp-side .logo{width:52px;height:52px;border-radius:12px;background:var(--chip);display:grid;place-items:center;font-weight:700;color:var(--green);font-size:15px}
+.xp-body{min-width:0}
+.xp-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}
+.xp-head .t{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
+.xp-head h3{font-size:22px;font-weight:700;margin-top:2px}
+.xp-head .sub{font-size:14px;color:var(--muted);margin-top:2px}
+.xp-head .when{font-size:13px;color:var(--soft);white-space:nowrap;padding-top:4px}
+.xp-body ul{margin:12px 0 0;padding-left:18px;color:var(--muted);font-size:15px;display:grid;gap:6px}
+.xp-body li::marker{color:var(--gold)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
 .chips span{font-size:12.5px;font-weight:600;padding:4px 10px;border-radius:999px;background:var(--chip);color:var(--green);font-variant-numeric:tabular-nums}
-/* fantasy board */
-.ff{grid-column:1/-1;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 22px;min-width:0}
-.ff-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px}
-.ff-head h4{margin:0}
-.ff-week{font-size:13px;color:var(--soft)}
-.ff-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
-.ff-tabs button{font:inherit;font-size:14px;font-weight:700;padding:7px 16px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--muted);cursor:pointer}
-.ff-tabs button[aria-selected="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
-.ff-tabs button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.ff-list{list-style:none;margin:0;padding:0}
-.ff-list li{display:flex;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);font-size:15px}
-.ff-list li:last-child{border-bottom:0}
-.ff-list .n{width:1.8em;color:var(--soft);font-variant-numeric:tabular-nums;font-weight:600}
-.ff-list li.tier{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);padding:14px 0 4px;border-bottom:0}
-.wip{border-style:dashed;background:transparent}
-.tools{margin-top:40px}
-.tools .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.tools span{font-size:14px;padding:7px 13px;border-radius:999px;background:var(--card);border:1px solid var(--line)}
+.xp-earlier{margin-top:16px;padding:12px 18px;font-size:14px;color:var(--muted);border:1px dashed var(--line);border-radius:12px}
+.xp-earlier b{color:var(--fg);font-weight:600}
+@media (max-width:560px){.xp-item{grid-template-columns:1fr}.xp-side{display:none}}
+.skills-h{margin-top:48px}
+.skills{display:grid;gap:22px}
+.skills .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.skills span{font-size:14px;padding:7px 13px;border-radius:999px;background:var(--card);border:1px solid var(--line)}
 
 /* fun */
 .fun-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
@@ -274,77 +259,63 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
 
   <section class="panel" id="p-exp" role="tabpanel" aria-labelledby="t-exp" hidden>
     <h2>Experience</h2>
-    <div class="subtabs" role="tablist">
-      <button role="tab" aria-selected="true" data-g="intern">Work</button>
-      <button role="tab" aria-selected="false" data-g="lead">Leadership</button>
-      <button role="tab" aria-selected="false" data-g="ft">Full-time (working on it..)</button>
-    </div>
+    <ol class="xp">
+      <li class="xp-item">
+        <div class="xp-side"><div class="logo">SV</div></div>
+        <div class="xp-body">
+          <div class="xp-head"><div><div class="t">Financial Planning &amp; Ops Intern</div><h3>SVHai</h3><div class="sub">ai voice platform for telecom · long beach</div></div><div class="when">May 2026 – Aug 2026</div></div>
+          <ul>
+            <li>priced a brand new ai voice product from zero: 4 subscription tiers plus metered usage, priced off supplier costs i verified on live vendor pages. caught a cost assumption that was 41% too high and rebuilt the unit economics.</li>
+            <li>built the company's first financial model: 9 scenarios, 3 years, revenue through headcount, with p&amp;l and cash flow. it's what leadership is raising $230K to $6.1M against.</li>
+            <li>rebuilt billing across rev.io, stripe and quickbooks around one 119-product catalog. reconciling the three fixed 171 stale values and 33 products billed below approved rates.</li>
+          </ul>
+          <div class="chips"><span>41% cost error caught</span><span>$230K to $6.1M raise</span><span>119-product catalog</span></div>
+        </div>
+      </li>
+      <li class="xp-item">
+        <div class="xp-side"><div class="logo">SP</div></div>
+        <div class="xp-body">
+          <div class="xp-head"><div><div class="t">President</div><h3>Spero</h3><div class="sub">berkeley's largest student-run clothing brand</div></div><div class="when">Apr 2024 – Present</div></div>
+          <ul>
+            <li>took over with $200 and one drop a year. now 3 drops a semester, 8 drops total, all funded by our own margins. preorders decide how big each run is.</li>
+            <li>grew the team from a 5-person core to 14 across design, eng, ops and marketing, and moved everyone onto linear.</li>
+            <li>got spero into 6 other student orgs across 3 campuses (uci, northeastern). that's about 10% of revenue now.</li>
+          </ul>
+          <div class="chips"><span>$3,500+ revenue</span><span>8 drops</span><span>14-person team</span></div>
+        </div>
+      </li>
+      <li class="xp-item">
+        <div class="xp-side"><div class="logo">BD</div></div>
+        <div class="xp-body">
+          <div class="xp-head"><div><div class="t">Business Analyst Intern</div><h3>Boring Deco</h3><div class="sub">cpg startup · brea</div></div><div class="when">May 2025 – Aug 2025</div></div>
+          <ul>
+            <li>turned power bi sales trends into the pitch that got us into 40 sprouts stores, a channel we had no relationship with before.</li>
+            <li>consolidated the sprouts data into one power bi matrix the ceo now decides from. that replaced about 260 hours a year of manual entry.</li>
+            <li>sku-level analysis plus a packaging re-source cut packaging cost 35% and lifted sell-through 8 points.</li>
+          </ul>
+          <div class="chips"><span>40 sprouts stores</span><span>260 hrs/yr saved</span><span>35% lower packaging cost</span></div>
+        </div>
+      </li>
+      <li class="xp-item">
+        <div class="xp-side"><div class="logo">HK</div></div>
+        <div class="xp-body">
+          <div class="xp-head"><div><div class="t">Founder</div><h3>HK Clones</h3><div class="sub">d2c custom lego minifigs</div></div><div class="when">Apr 2020 – Jul 2024</div></div>
+          <ul>
+            <li>built and ran the whole thing: sourcing, ebay + instagram, customer service, the p&amp;l. revenue up 225% in a year to $25K, units from 65 to 225.</li>
+            <li>renegotiated overseas suppliers, which cut landed cost 33% and got gross margin to 75%.</li>
+            <li>cross-promos and an affiliate program made repeat buyers 11% of revenue.</li>
+          </ul>
+          <div class="chips"><span>$25K revenue</span><span>+225% yoy</span><span>75% gross margin</span></div>
+        </div>
+      </li>
+    </ol>
+    <div class="xp-earlier"><b>earlier:</b> McDonald's, crew member <span class="edit">[dates]</span>. first job. <span class="edit">[one line, optional]</span></div>
 
-    <div class="jobs" data-group="intern">
-      <div class="job">
-        <div class="t">Financial Planning &amp; Ops Intern</div>
-        <h3>SVHai</h3>
-        <div class="sub">ai voice platform for telecom</div>
-        <div class="when">May 2026 – Aug 2026</div>
-        <div class="logo">SV</div>
-        <p>priced a brand new ai voice product from zero (4 tiers + usage), built the 9-scenario model they're fundraising on, and rebuilt billing across rev.io, stripe and quickbooks.</p>
-        <div class="chips"><span>41% cost error caught</span><span>$230K to $6.1M raise</span><span>119-product catalog</span></div>
-      </div>
-      <div class="job">
-        <div class="t">Business Analyst Intern</div>
-        <h3>Boring Deco</h3>
-        <div class="sub">cpg startup</div>
-        <div class="when">May 2025 – Aug 2025</div>
-        <div class="logo">BD</div>
-        <p>dug into our sprouts sales data in power bi and turned it into the pitch that opened a new retail channel. also automated the ceo's daily data entry.</p>
-        <div class="chips"><span>40 sprouts stores</span><span>260 hrs/yr saved</span><span>35% lower packaging cost</span></div>
-      </div>
-      <div class="job wide">
-        <div class="t">Crew Member <span class="edit">[your title]</span></div>
-        <h3>McDonald's</h3>
-        <div class="sub">first job</div>
-        <div class="when"><span class="edit">[dates]</span></div>
-        <div class="logo">M</div>
-        <p>lunch rush and drive-thru. <span class="edit">[one line in your words: what it taught you]</span></p>
-      </div>
-    </div>
-
-    <div class="jobs" data-group="lead" hidden>
-      <div class="job">
-        <div class="t">President</div>
-        <h3>Spero</h3>
-        <div class="when">Apr 2024 – Present</div>
-        <div class="sub">berkeley's largest student-run clothing brand</div>
-        <div class="logo">SP</div>
-        <p>took over with $200 and one drop a year. now 3 drops a semester, all funded by our own margins, with 14 people across design, eng, ops and marketing.</p>
-        <div class="chips"><span>$3,500+ revenue</span><span>8 drops</span><span>6 partner orgs, 3 campuses</span></div>
-      </div>
-      <div class="job">
-        <div class="t">Founder</div>
-        <h3>HK Clones</h3>
-        <div class="when">Apr 2020 – Jul 2024</div>
-        <div class="sub">d2c e-commerce</div>
-        <div class="logo">HK</div>
-        <p>sold custom lego minifigs on ebay + instagram. renegotiated overseas suppliers and timed drops to what buyers were asking for.</p>
-        <div class="chips"><span>$25K revenue</span><span>+225% yoy</span><span>75% gross margin</span></div>
-      </div>
-    </div>
-
-    <div class="jobs" data-group="ft" hidden>
-      <div class="job wip">
-        <div class="t">Strategy · Finance · Product</div>
-        <h3>???</h3>
-        <div class="when">Summer 2027</div>
-        <div class="logo">?</div>
-        <p>looking for strategy, finance, ops and product roles starting summer 2027. if that's you, hit the email button.</p>
-      </div>
-    </div>
-
-    <div class="tools">
-      <div class="label">Tools</div>
-      <div class="row">
-        <span>Claude</span><span>Excel</span><span>Figma</span><span>Google Apps Script</span><span>Jira</span><span>Linear</span><span>Power BI</span><span>Python</span><span>QuickBooks</span><span>Rev.io</span><span>SQL</span><span>Stripe</span>
-      </div>
+    <h2 class="skills-h">Skills</h2>
+    <div class="skills">
+      <div><div class="label">Finance &amp; Strategy</div><div class="row"><span>Financial Modeling</span><span>Scenario Analysis</span><span>Forecasting</span><span>Unit Economics</span><span>Pricing Strategy</span><span>P&amp;L Ownership</span><span>Go-to-Market</span><span>Competitive Analysis</span><span>Market Sizing</span></div></div>
+      <div><div class="label">Data &amp; Tools</div><div class="row"><span>Excel (Pivot Tables, Power Query)</span><span>SQL</span><span>Python (Pandas)</span><span>Power BI</span><span>Google Apps Script</span><span>Figma</span><span>Linear</span><span>Jira</span><span>Stripe</span><span>QuickBooks</span><span>Rev.io</span><span>Claude</span></div></div>
+      <div><div class="label">Certifications</div><div class="row"><span>CFA Institute Financial Modeling (PSM)</span><span>Microsoft AI Market Research &amp; Competitive Analysis</span></div></div>
     </div>
   </section>
 
@@ -426,35 +397,6 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
     tabs.forEach(function(o){o.setAttribute('aria-selected','false');document.getElementById(o.getAttribute('aria-controls')).hidden=true;});
     t.setAttribute('aria-selected','true');document.getElementById(t.getAttribute('aria-controls')).hidden=false;
   });});
-  // experience subtabs
-  var subs=document.querySelectorAll('.subtabs [role=tab]');
-  subs.forEach(function(s){s.addEventListener('click',function(){
-    subs.forEach(function(o){o.setAttribute('aria-selected','false');});
-    s.setAttribute('aria-selected','true');
-    document.querySelectorAll('.jobs').forEach(function(g){g.hidden=g.getAttribute('data-group')!==s.getAttribute('data-g');});
-  });});
-  // fantasy board. edit names and tiers here: [name, tier]
-  var FF={
-    QB:[['Josh Allen'],['Brock Purdy'],['Caleb Williams'],['Drake Maye'],['Joe Burrow']],
-    RB:[['Jahmyr Gibbs'],['Bijan Robinson'],['Kenneth Walker III'],['Jonathan Taylor'],['Christian McCaffrey']],
-    WR:[['Jaxon Smith-Njigba'],['Puka Nacua'],['Amon-Ra St. Brown'],['CeeDee Lamb'],["Ja'Marr Chase"]]
-  };
-  var ffList=document.getElementById('ff-list'),ffTabs=document.querySelectorAll('.ff-tabs button');
-  function ffRender(pos){
-    ffList.innerHTML='';var last=0;
-    FF[pos].forEach(function(p,i){
-      if(p[1]&&p[1]!==last){var t=document.createElement('li');t.className='tier';t.textContent='tier '+p[1];ffList.appendChild(t);last=p[1];}
-      var li=document.createElement('li');var n=document.createElement('span');n.className='n';n.textContent=pos+(i+1);
-      li.appendChild(n);li.appendChild(document.createTextNode(p[0]));ffList.appendChild(li);
-    });
-  }
-  ffTabs.forEach(function(b){b.addEventListener('click',function(){ffTabs.forEach(function(o){o.setAttribute('aria-selected','false');});b.setAttribute('aria-selected','true');ffRender(b.getAttribute('data-pos'));});});
-  ffRender('QB');
-  // email: copy address on click so it works even when the visitor's mail app is set to another account
-  var eb=document.getElementById('email-btn'),et=document.getElementById('email-text');
-  eb.addEventListener('click',function(){
-    try{navigator.clipboard.writeText('hogankim42@gmail.com').then(function(){et.textContent='copied hogankim42@gmail.com';setTimeout(function(){et.textContent='hogankim42@gmail.com';},2500);}).catch(function(){});}catch(e){}
-  });
   // toggle
   var sw=document.getElementById('sw'),game=document.getElementById('game');
   sw.addEventListener('click',function(){var on=sw.getAttribute('aria-checked')!=='true';sw.setAttribute('aria-checked',on);game.hidden=!on;if(on)size();});
