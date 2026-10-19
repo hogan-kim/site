@@ -123,13 +123,24 @@ h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
 .skills span{font-size:14px;padding:7px 13px;border-radius:999px;background:var(--card);border:1px solid var(--line)}
 
 /* fun */
-.fun-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-@media (max-width:1000px){.fun-grid{grid-template-columns:1fr}}
-.fun{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;display:grid;gap:8px;min-width:0}
-.fun .rank{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
-.fun h3{font-size:20px;font-weight:700}
-.fun .when{font-size:13px;color:var(--soft)}
-.fun p{margin:0;color:var(--muted);font-size:15px}
+.frow{display:grid;grid-template-columns:140px 1fr;gap:18px;padding:20px 0;border-bottom:1px solid var(--line)}
+.frow:last-of-type{border-bottom:0}
+@media (max-width:560px){.frow{grid-template-columns:1fr;gap:8px}}
+.flab h3{font-size:18px;font-weight:700}
+.flab span{display:block;font-size:13px;color:var(--soft);margin-top:2px}
+.frow p{margin:0;color:var(--muted);font-size:15px}
+.frow p b{color:var(--fg);font-weight:700}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tags span{font-size:12.5px;padding:4px 10px;border-radius:999px;background:var(--chip);color:var(--green);font-weight:600}
+.beli{display:flex;gap:22px;flex-wrap:wrap;color:var(--muted);font-size:14px}
+.beli b{font-size:26px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--fg);margin-right:4px}
+.lineup{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:12px 0 16px}
+@media (max-width:640px){.lineup{grid-template-columns:1fr 1fr}}
+.lineup span{font-size:13px;padding:7px 10px;border-radius:8px;background:var(--card);border:1px solid var(--line)}
+.fphoto{margin:0;border-radius:14px;overflow:hidden;position:relative;max-width:560px}
+.fphoto img{display:block;width:100%;height:auto}
+.fphoto figcaption{position:absolute;left:10px;bottom:10px;font-size:12px;font-weight:600;color:#fff;background:rgba(0,0,0,.5);padding:4px 10px;border-radius:999px}
+.ff{margin-top:4px}
 
 /* about */
 .photos{display:grid;grid-template-columns:1fr 2fr;gap:14px;margin-bottom:26px}
@@ -140,7 +151,7 @@ h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
 .photos figcaption{position:absolute;left:10px;bottom:10px;font-size:12px;font-weight:600;color:#fff;background:rgba(0,0,0,.5);padding:4px 10px;border-radius:999px}
 @media (max-width:640px){.photos{grid-template-columns:1fr}.photos figure{height:auto;aspect-ratio:4/3}.photos figure.golf{aspect-ratio:4/5}}
 .bio{font-size:18px;max-width:60ch;margin:0 0 36px}
-.about-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:36px 48px}
+.about-grid{display:grid;grid-template-columns:1fr;gap:36px 48px}
 @media (max-width:1000px){.about-grid{grid-template-columns:1fr}}
 .about-grid h4{margin:0 0 12px;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .kv{display:grid;grid-template-columns:110px 1fr;gap:8px 14px;font-size:15px}
@@ -293,32 +304,33 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
 
   <section class="panel" id="p-fun" role="tabpanel" aria-labelledby="t-fun" hidden>
     <h2>Fun</h2>
-    <div class="fun-grid">
-      <div class="fun">
-        <div class="rank">Ranking · 2023</div>
-        <h3>Top 1% Amateur, California</h3>
-        <div class="when">2023</div>
-        <p>Started golf freshman year of high school. Reached a 4 handicap.</p>
+    <div class="frow"><div class="flab"><h3>Golf</h3><span>since 2019</span></div><div>
+      <p><b>4 handicap.</b> Top 1% amateur in California (2023). CIF State individuals qualifier. Led varsity to consecutive 1st seeds in league.</p>
+      <div class="tags"><span>home course: <span class="edit">[name]</span></span><span>best round: <span class="edit">[score]</span></span></div>
+    </div></div>
+    <div class="frow"><div class="flab"><h3>Food</h3><span>Beli</span></div><div>
+      <div class="beli"><span><b>#29,000</b> worldwide</span><span><b>523</b> restaurants ranked</span></div>
+      <div class="tags"><span>1 · <span class="edit">[restaurant]</span></span><span>2 · <span class="edit">[restaurant]</span></span><span>3 · <span class="edit">[restaurant]</span></span><span>4 · <span class="edit">[restaurant]</span></span><span>5 · <span class="edit">[restaurant]</span></span></div>
+    </div></div>
+    <div class="frow"><div class="flab"><h3>Fantasy</h3><span>Yahoo · 2026</span></div><div>
+      <p><b>4-2.</b> Research: Flock Fantasy, Walter Picks, Sal Vetri.</p>
+      <div class="lineup"><span>QB Caleb Williams</span><span>RB Jahmyr Gibbs</span><span>RB Rhamondre Stevenson</span><span>WR Drake London</span><span>WR Zay Flowers</span><span>TE Trey McBride</span><span>FLEX Jalen Coker</span><span>K Tyler Loop</span><span>DEF Seahawks</span></div>
+      <div class="ff">
+        <div class="ff-head"><h4>Rest-of-season rankings</h4><span class="ff-week">week 7</span></div>
+        <div class="ff-tabs" role="tablist">
+          <button role="tab" aria-selected="true" data-pos="QB">QB</button>
+          <button role="tab" aria-selected="false" data-pos="RB">RB</button>
+          <button role="tab" aria-selected="false" data-pos="WR">WR</button>
+        </div>
+        <ol class="ff-list" id="ff-list"></ol>
       </div>
-      <div class="fun">
-        <div class="rank">Competition</div>
-        <h3>CIF State Qualifier</h3>
-        <div class="when">High school</div>
-        <p>Qualified for CIF State individuals. Pursued D1 recruiting; the chase shaped how I compete.</p>
-      </div>
-      <div class="fun">
-        <div class="rank">Team</div>
-        <h3>Varsity Golf</h3>
-        <div class="when">2019 – 2023</div>
-        <p>Led varsity to consecutive 1st seeds in league with multiple 1st-place finishes.</p>
-      </div>
-      <div class="fun">
-        <div class="rank">Off the course</div>
-        <h3>Fantasy Football</h3>
-        <div class="when">every fall</div>
-        <p>Yahoo league regular. Research: Flock Fantasy, Walter Picks, Sal Vetri. <span class="edit">[add your record]</span></p>
-      </div>
-    </div>
+    </div></div>
+    <div class="frow"><div class="flab"><h3>People</h3><span>the group</span></div><div>
+      <figure class="fphoto"><img src="images/friends.jpg" alt="Hogan and friends in Yosemite Valley" loading="lazy"><figcaption>yosemite</figcaption></figure>
+    </div></div>
+    <div class="frow"><div class="flab"><h3>Hobbies</h3></div><div>
+      <p>Basketball (point guard, high school captain). Streetwear. Personal investing. Currently reading <em>I Will Teach You to Be Rich</em> (Ramit Sethi) and <em>Expository Apologetics</em> (Voddie Baucham).</p>
+    </div></div>
   </section>
 
   <section class="panel" id="p-about" role="tabpanel" aria-labelledby="t-about" hidden>
@@ -327,7 +339,7 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
       <figure class="golf"><img src="images/golf.jpg" alt="Hogan mid-backswing on the tee" loading="lazy"><figcaption>on the tee</figcaption></figure>
       <figure class="crew"><img src="images/friends.jpg" alt="Hogan and friends in Yosemite Valley" loading="lazy"><figcaption>yosemite</figcaption></figure>
     </div>
-    <p class="bio">Orange County native. Economics and Data Science at UC Berkeley. Golf, football, friends, streetwear, and markets podcasts before sunrise.</p>
+    <p class="bio">Orange County native. Economics and Data Science at UC Berkeley. Golf, football, friends, streetwear, and 523 restaurants ranked on Beli.</p>
     <div class="about-grid">
       <div>
         <h4>Following</h4>
@@ -335,24 +347,7 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
           <dt>Golf</dt><dd><span class="edit">[your guy]</span></dd>
           <dt>Football</dt><dd><span class="edit">[your team]</span></dd>
           <dt>Basketball</dt><dd><span class="edit">[your team]</span></dd>
-          <dt>Markets</dt><dd>Prof G Markets</dd>
         </dl>
-      </div>
-      <div>
-        <h4>Current reads</h4>
-        <dl class="kv">
-          <dt>Investing</dt><dd><em>I Will Teach You to Be Rich</em>, Ramit Sethi</dd>
-          <dt>Fun</dt><dd><em>Expository Apologetics</em>, Voddie Baucham</dd>
-        </dl>
-      </div>
-      <div class="ff">
-        <div class="ff-head"><h4>My fantasy rankings</h4><span class="ff-week">rest of season · week 7</span></div>
-        <div class="ff-tabs" role="tablist">
-          <button role="tab" aria-selected="true" data-pos="QB">QB</button>
-          <button role="tab" aria-selected="false" data-pos="RB">RB</button>
-          <button role="tab" aria-selected="false" data-pos="WR">WR</button>
-        </div>
-        <ol class="ff-list" id="ff-list"></ol>
       </div>
     </div>
   </section>
