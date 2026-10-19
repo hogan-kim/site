@@ -151,13 +151,12 @@ h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
 @media (max-width:640px){.pgrid2 figure.wide{aspect-ratio:16/9}}
 
 /* about */
-.photos{display:grid;grid-template-columns:1fr 2fr;gap:14px;margin-bottom:26px}
-.photos figure{margin:0;position:relative;border-radius:16px;overflow:hidden;height:360px;background:var(--chip);min-width:0}
+.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px}
+.photos figure{margin:0;position:relative;border-radius:16px;overflow:hidden;aspect-ratio:4/5;max-width:100%;background:var(--chip);min-width:0}
 .photos img{display:block;width:100%;height:100%;object-fit:cover}
 .photos .golf img{object-position:50% 45%}
-.photos .crew img{object-position:50% 70%}
 .photos figcaption{position:absolute;left:10px;bottom:10px;font-size:12px;font-weight:600;color:#fff;background:rgba(0,0,0,.5);padding:4px 10px;border-radius:999px}
-@media (max-width:640px){.photos{grid-template-columns:1fr}.photos figure{height:auto;aspect-ratio:4/3}.photos figure.golf{aspect-ratio:4/5}}
+@media (max-width:560px){.photos{grid-template-columns:1fr 1fr}.photos figure:first-child{grid-column:1/-1;aspect-ratio:16/10}}
 .bio{font-size:18px;max-width:60ch;margin:0 0 36px}
 .about-grid{display:grid;grid-template-columns:1fr;gap:36px 48px}
 @media (max-width:1000px){.about-grid{grid-template-columns:1fr}}
@@ -331,16 +330,6 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
         <figure><img src="images/travel-osaka.jpg" alt="Hogan and friends in front of Osaka Castle" loading="lazy"><figcaption>Osaka</figcaption></figure>
       </div>
     </div></div>
-    <div class="frow"><div class="flab"><h3>People</h3></div><div>
-      <div class="pgrid2">
-        <figure class="wide"><img src="images/people-stadium.jpg" alt="Friends at Cal Memorial Stadium" loading="lazy"></figure>
-        <figure><img src="images/people-garden.jpg" alt="Friends in a garden" loading="lazy"></figure>
-        <figure><img src="images/people-hike.jpg" alt="Friends at the Yosemite Falls overlook" loading="lazy"></figure>
-        <figure class="wide"><img src="images/people-coffee.jpg" alt="Friends with coffee outside The Holiday Shoppe" loading="lazy"></figure>
-        <figure class="wide"><img src="images/people-donuts.jpg" alt="Friends at a donut shop at night" loading="lazy"></figure>
-        <figure><img src="images/people-night.jpg" alt="Friends at night" loading="lazy"></figure>
-      </div>
-    </div></div>
     <div class="frow"><div class="flab"><h3>Hobbies</h3></div><div>
       <p>Basketball (point guard, high school captain). Streetwear. Personal investing. Currently reading <em>I Will Teach You to Be Rich</em> (Ramit Sethi) and <em>Expository Apologetics</em> (Voddie Baucham).</p>
     </div></div>
@@ -349,8 +338,9 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
   <section class="panel" id="p-about" role="tabpanel" aria-labelledby="t-about" hidden>
     <h2>About Me</h2>
     <div class="photos">
-      <figure class="golf"><img src="images/golf.jpg" alt="Hogan mid-backswing on the tee" loading="lazy"><figcaption>on the tee</figcaption></figure>
-      <figure class="crew"><img src="images/friends.jpg" alt="Hogan and friends in Yosemite Valley" loading="lazy"><figcaption>yosemite</figcaption></figure>
+      <figure><img src="images/golf.jpg" alt="Hogan mid-backswing on the tee" loading="lazy"><figcaption>on the tee</figcaption></figure>
+      <figure><img src="images/me-garden.jpg" alt="Hogan in a garden" loading="lazy"><figcaption>golden gate park</figcaption></figure>
+      <figure><img src="images/me-hike.jpg" alt="Hogan on the Yosemite Falls trail" loading="lazy"><figcaption>yosemite</figcaption></figure>
     </div>
     <p class="bio">Orange County native. Economics and Data Science at UC Berkeley. Golf, football, friends, streetwear, and 523 restaurants ranked on Beli.</p>
     <div class="about-grid">
