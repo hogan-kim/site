@@ -150,7 +150,7 @@ h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
 @media (max-width:640px){.pgrid2 figure.wide{aspect-ratio:16/9}}
 
 /* about */
-.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px;align-items:start}
+.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;align-items:start}
 .photos figure{margin:0;border-radius:16px;overflow:hidden;max-width:100%;background:var(--chip);min-width:0}
 .photos img{display:block;width:100%;height:auto}
 @media (max-width:560px){.photos{grid-template-columns:1fr}}
@@ -204,7 +204,6 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
     <button role="tab" id="t-proj" aria-controls="p-proj" aria-selected="true">Projects</button>
     <button role="tab" id="t-exp" aria-controls="p-exp" aria-selected="false">Experience</button>
     <button role="tab" id="t-fun" aria-controls="p-fun" aria-selected="false">Fun</button>
-    <button role="tab" id="t-about" aria-controls="p-about" aria-selected="false">About Me</button>
   </nav>
 
   <section class="panel" id="p-proj" role="tabpanel" aria-labelledby="t-proj">
@@ -330,27 +329,15 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
     <div class="frow"><div class="flab"><h3>Hobbies</h3></div><div>
       <p>Basketball (point guard, high school captain). Streetwear. Personal investing. Currently reading <em>I Will Teach You to Be Rich</em> (Ramit Sethi) and <em>Expository Apologetics</em> (Voddie Baucham).</p>
     </div></div>
-  </section>
-
-  <section class="panel" id="p-about" role="tabpanel" aria-labelledby="t-about" hidden>
-    <h2>About Me</h2>
-    <div class="photos">
+    <div class="frow"><div class="flab"><h3>Photos</h3></div><div>
+      <div class="photos">
       <figure><img src="images/golf.jpg" alt="Hogan mid-backswing on the tee" loading="lazy"></figure>
       <figure><img src="images/me-garden.jpg" alt="Hogan with friends in a garden" loading="lazy"></figure>
       <figure><img src="images/me-hike.jpg" alt="Hogan with friends on the Yosemite Falls trail" loading="lazy"></figure>
     </div>
-    <p class="bio">Orange County native. Economics and Data Science at UC Berkeley. Golf, football, friends, streetwear, and 523 restaurants ranked on Beli.</p>
-    <div class="about-grid">
-      <div>
-        <h4>Following</h4>
-        <dl class="kv">
-          <dt>Golf</dt><dd><span class="edit">[your guy]</span></dd>
-          <dt>Football</dt><dd><span class="edit">[your team]</span></dd>
-          <dt>Basketball</dt><dd><span class="edit">[your team]</span></dd>
-        </dl>
-      </div>
-    </div>
+    </div></div>
   </section>
+
 </div>
 
 </div>
