@@ -137,10 +137,18 @@ h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
 .lineup{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:12px 0 16px}
 @media (max-width:640px){.lineup{grid-template-columns:1fr 1fr}}
 .lineup span{font-size:13px;padding:7px 10px;border-radius:8px;background:var(--card);border:1px solid var(--line)}
-.fphoto{margin:0;border-radius:14px;overflow:hidden;position:relative;max-width:560px}
-.fphoto img{display:block;width:100%;height:auto}
-.fphoto figcaption{position:absolute;left:10px;bottom:10px;font-size:12px;font-weight:600;color:#fff;background:rgba(0,0,0,.5);padding:4px 10px;border-radius:999px}
-.ff{margin-top:4px}
+.eats{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-top:14px}
+.tgrid{display:grid;grid-template-columns:1fr 1.33fr 1fr;gap:10px}
+@media (max-width:640px){.tgrid{grid-template-columns:1fr 1fr}.tgrid figure:nth-child(2){grid-column:1/-1}}
+.tgrid figure{margin:0;position:relative;border-radius:12px;overflow:hidden;aspect-ratio:4/5;max-width:100%;background:var(--chip)}
+.tgrid figure:nth-child(2){aspect-ratio:auto}
+.tgrid img,.pgrid2 img{display:block;width:100%;height:100%;object-fit:cover}
+.tgrid figcaption{position:absolute;left:10px;bottom:10px;font-size:12px;font-weight:600;color:#fff;background:rgba(0,0,0,.5);padding:4px 10px;border-radius:999px}
+.pgrid2{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media (max-width:640px){.pgrid2{grid-template-columns:1fr 1fr}}
+.pgrid2 figure{margin:0;border-radius:10px;overflow:hidden;aspect-ratio:4/3;max-width:100%;background:var(--chip)}
+.pgrid2 figure.wide{grid-column:span 2;aspect-ratio:auto}
+@media (max-width:640px){.pgrid2 figure.wide{aspect-ratio:16/9}}
 
 /* about */
 .photos{display:grid;grid-template-columns:1fr 2fr;gap:14px;margin-bottom:26px}
@@ -304,29 +312,35 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
 
   <section class="panel" id="p-fun" role="tabpanel" aria-labelledby="t-fun" hidden>
     <h2>Fun</h2>
-    <div class="frow"><div class="flab"><h3>Golf</h3><span>since 2019</span></div><div>
+    <div class="frow"><div class="flab"><h3>Golf</h3></div><div>
       <p><b>4 handicap.</b> Top 1% amateur in California (2023). CIF State individuals qualifier. Led varsity to consecutive 1st seeds in league.</p>
-      <div class="tags"><span>best course played: Oak Quarry Golf Club</span><span>best round: E</span></div>
+      <div class="tags"><span>Best Course Played: Oak Quarry Golf Club</span><span>Best Round: E</span></div>
     </div></div>
     <div class="frow"><div class="flab"><h3>Food</h3><span>Beli</span></div><div>
       <div class="beli"><span><b>#29,000</b> worldwide</span><span><b>523</b> restaurants ranked</span></div>
-      <div class="tags"><span>1 · <span class="edit">[restaurant]</span></span><span>2 · <span class="edit">[restaurant]</span></span><span>3 · <span class="edit">[restaurant]</span></span><span>4 · <span class="edit">[restaurant]</span></span><span>5 · <span class="edit">[restaurant]</span></span></div>
+      <div class="eats">Top 5 Eats of 2026</div><div class="tags"><span>1 · House of Prime Rib, SF</span><span>2 · Mo Ran Gak, Orange County</span><span>3 · Arsicault Bakery, SF</span><span>4 · Oiji Mi, NY</span><span>5 · Anita La Mamma del Gelato, NY</span></div>
     </div></div>
-    <div class="frow"><div class="flab"><h3>Fantasy</h3><span>Yahoo · 2026</span></div><div>
-      <p><b>4-2.</b> Research: Flock Fantasy, Walter Picks, Sal Vetri.</p>
+    <div class="frow"><div class="flab"><h3>Fantasy</h3></div><div>
+      <p><b>Record: 4-2 (3rd)</b></p>
       <div class="lineup"><span>QB Caleb Williams</span><span>RB Jahmyr Gibbs</span><span>RB Rhamondre Stevenson</span><span>WR Drake London</span><span>WR Zay Flowers</span><span>TE Trey McBride</span><span>FLEX Jalen Coker</span><span>K Tyler Loop</span><span>DEF Seahawks</span></div>
-      <div class="ff">
-        <div class="ff-head"><h4>Rest-of-season rankings</h4><span class="ff-week">week 7</span></div>
-        <div class="ff-tabs" role="tablist">
-          <button role="tab" aria-selected="true" data-pos="QB">QB</button>
-          <button role="tab" aria-selected="false" data-pos="RB">RB</button>
-          <button role="tab" aria-selected="false" data-pos="WR">WR</button>
-        </div>
-        <ol class="ff-list" id="ff-list"></ol>
+    </div></div>
+    <div class="frow"><div class="flab"><h3>Travel</h3></div><div>
+      <div class="tgrid">
+        <figure><img src="images/travel-lake.jpg" alt="Hogan standing on rocks at a glacial lake" loading="lazy"><figcaption><span class="edit">[place]</span></figcaption></figure>
+        <figure><img src="images/travel-cliff.jpg" alt="Hogan lying on a granite ledge above a valley" loading="lazy"><figcaption><span class="edit">[place]</span></figcaption></figure>
+        <figure><img src="images/travel-osaka.jpg" alt="Hogan and friends in front of Osaka Castle" loading="lazy"><figcaption>Osaka</figcaption></figure>
       </div>
     </div></div>
-    <div class="frow"><div class="flab"><h3>People</h3><span>the group</span></div><div>
-      <figure class="fphoto"><img src="images/friends.jpg" alt="Hogan and friends in Yosemite Valley" loading="lazy"><figcaption>yosemite</figcaption></figure>
+    <div class="frow"><div class="flab"><h3>People</h3></div><div>
+      <div class="pgrid2">
+        <figure class="wide"><img src="images/people-stadium.jpg" alt="Friends at Cal Memorial Stadium" loading="lazy"></figure>
+        <figure><img src="images/people-garden.jpg" alt="Friends in a garden" loading="lazy"></figure>
+        <figure><img src="images/people-tree.jpg" alt="Friends in a tree at dusk" loading="lazy"></figure>
+        <figure><img src="images/people-dinner.jpg" alt="Friends at dinner" loading="lazy"></figure>
+        <figure><img src="images/people-donuts.jpg" alt="Friends at a donut shop at night" loading="lazy"></figure>
+        <figure><img src="images/people-night.jpg" alt="Friends at night" loading="lazy"></figure>
+        <figure class="wide"><img src="images/friends.jpg" alt="Friends in Yosemite Valley" loading="lazy"></figure>
+      </div>
     </div></div>
     <div class="frow"><div class="flab"><h3>Hobbies</h3></div><div>
       <p>Basketball (point guard, high school captain). Streetwear. Personal investing. Currently reading <em>I Will Teach You to Be Rich</em> (Ramit Sethi) and <em>Expository Apologetics</em> (Voddie Baucham).</p>
@@ -364,6 +378,8 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
     tabs.forEach(function(o){o.setAttribute('aria-selected','false');document.getElementById(o.getAttribute('aria-controls')).hidden=true;});
     t.setAttribute('aria-selected','true');document.getElementById(t.getAttribute('aria-controls')).hidden=false;
   });});
+  var eb=document.getElementById('email-btn'),et=document.getElementById('email-text');
+  eb.addEventListener('click',function(){try{navigator.clipboard.writeText('hogankim42@gmail.com').then(function(){et.textContent='copied hogankim42@gmail.com';setTimeout(function(){et.textContent='hogankim42@gmail.com';},2500);}).catch(function(){});}catch(e){}});
   // toggle
   var sw=document.getElementById('sw'),game=document.getElementById('game');
   sw.addEventListener('click',function(){var on=sw.getAttribute('aria-checked')!=='true';sw.setAttribute('aria-checked',on);game.hidden=!on;if(on)size();});
