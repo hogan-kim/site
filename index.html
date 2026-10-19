@@ -138,10 +138,9 @@ h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
 @media (max-width:640px){.lineup{grid-template-columns:1fr 1fr}}
 .lineup span{font-size:13px;padding:7px 10px;border-radius:8px;background:var(--card);border:1px solid var(--line)}
 .eats{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-top:14px}
-.tgrid{display:grid;grid-template-columns:1fr 1.33fr 1fr;gap:10px}
-@media (max-width:640px){.tgrid{grid-template-columns:1fr 1fr}.tgrid figure:nth-child(2){grid-column:1/-1}}
-.tgrid figure{margin:0;position:relative;border-radius:12px;overflow:hidden;aspect-ratio:4/5;max-width:100%;background:var(--chip)}
-.tgrid figure:nth-child(2){aspect-ratio:auto}
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:640px){.tgrid{grid-template-columns:1fr}}
+.tgrid figure{margin:0;position:relative;border-radius:12px;overflow:hidden;aspect-ratio:4/3;max-width:100%;background:var(--chip)}
 .tgrid img,.pgrid2 img{display:block;width:100%;height:100%;object-fit:cover}
 .tgrid figcaption{position:absolute;left:10px;bottom:10px;font-size:12px;font-weight:600;color:#fff;background:rgba(0,0,0,.5);padding:4px 10px;border-radius:999px}
 .pgrid2{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
@@ -151,12 +150,10 @@ h1,h2,h3{margin:0;letter-spacing:-.02em;line-height:1.1;text-wrap:balance}
 @media (max-width:640px){.pgrid2 figure.wide{aspect-ratio:16/9}}
 
 /* about */
-.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px}
-.photos figure{margin:0;position:relative;border-radius:16px;overflow:hidden;aspect-ratio:4/5;max-width:100%;background:var(--chip);min-width:0}
-.photos img{display:block;width:100%;height:100%;object-fit:cover}
-.photos .golf img{object-position:50% 45%}
-.photos figcaption{position:absolute;left:10px;bottom:10px;font-size:12px;font-weight:600;color:#fff;background:rgba(0,0,0,.5);padding:4px 10px;border-radius:999px}
-@media (max-width:560px){.photos{grid-template-columns:1fr 1fr}.photos figure:first-child{grid-column:1/-1;aspect-ratio:16/10}}
+.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px;align-items:start}
+.photos figure{margin:0;border-radius:16px;overflow:hidden;max-width:100%;background:var(--chip);min-width:0}
+.photos img{display:block;width:100%;height:auto}
+@media (max-width:560px){.photos{grid-template-columns:1fr}}
 .bio{font-size:18px;max-width:60ch;margin:0 0 36px}
 .about-grid{display:grid;grid-template-columns:1fr;gap:36px 48px}
 @media (max-width:1000px){.about-grid{grid-template-columns:1fr}}
@@ -338,9 +335,9 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
   <section class="panel" id="p-about" role="tabpanel" aria-labelledby="t-about" hidden>
     <h2>About Me</h2>
     <div class="photos">
-      <figure><img src="images/golf.jpg" alt="Hogan mid-backswing on the tee" loading="lazy"><figcaption>on the tee</figcaption></figure>
-      <figure><img src="images/me-garden.jpg" alt="Hogan in a garden" loading="lazy"><figcaption>golden gate park</figcaption></figure>
-      <figure><img src="images/me-hike.jpg" alt="Hogan on the Yosemite Falls trail" loading="lazy"><figcaption>yosemite</figcaption></figure>
+      <figure><img src="images/golf.jpg" alt="Hogan mid-backswing on the tee" loading="lazy"></figure>
+      <figure><img src="images/me-garden.jpg" alt="Hogan with friends in a garden" loading="lazy"></figure>
+      <figure><img src="images/me-hike.jpg" alt="Hogan with friends on the Yosemite Falls trail" loading="lazy"></figure>
     </div>
     <p class="bio">Orange County native. Economics and Data Science at UC Berkeley. Golf, football, friends, streetwear, and 523 restaurants ranked on Beli.</p>
     <div class="about-grid">
