@@ -188,7 +188,7 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
         <canvas id="putt" tabindex="0" aria-label="Putting game. Hold to load power, release to putt."></canvas>
         <div class="meter"><i id="power"></i></div>
         <div class="game-stats"><span>putts <b id="putts">0</b></span><span>made <b id="made">0</b></span><span>streak <b id="streak">0</b></span></div>
-        <div class="game-msg" id="msg">Press and hold to set power, release to putt. The arrow shows how far it will roll; the line is the hole.</div>
+        <div class="game-msg" id="msg">Point at the hole, then press and hold for power. The arrow shows the line and how far it rolls. New hole every putt.</div>
       </div>
     </div>
 
@@ -362,25 +362,27 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
   var cv=document.getElementById('putt'),ctx=cv.getContext('2d');
   var powerEl=document.getElementById('power'),msg=document.getElementById('msg');
   var putts=0,made=0,streak=0,charging=false,power=0,chargeT=null,rolling=false;
-  var W=0,H=0,ball={x:0,y:0},hole={x:0,y:0},show=true,fx=null,sink=0;
+  var W=0,H=0,ball={x:0,y:0},hole={x:0,y:0},show=true,fx=null,sink=0,aim=-Math.PI/2,aimPt=null,FT=1;
   var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function tok(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
-  function size(){var r=cv.getBoundingClientRect();if(!r.width)return;var d=window.devicePixelRatio||1;W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);hole={x:W/2,y:40};ball={x:W/2,y:H-30};draw();}
+  function placeHole(){hole={x:30+Math.random()*(W-60),y:32+Math.random()*(H*0.45)};ball={x:40+Math.random()*(W-80),y:H-28};aim=Math.atan2(hole.y-ball.y,hole.x-ball.x);}
+  function size(){var r=cv.getBoundingClientRect();if(!r.width)return;var d=window.devicePixelRatio||1;W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);FT=30/(H-70);if(!hole.x)placeHole();draw();}
+  function dist(){return Math.hypot(hole.x-ball.x,hole.y-ball.y);}
+  function maxRoll(){return (H-70)*1.3;}
   function draw(){
     var g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#174a2f');g.addColorStop(1,'#2a7a4c');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
     ctx.strokeStyle='rgba(255,255,255,0.06)';ctx.lineWidth=14;for(var i=-H;i<W+H;i+=28){ctx.beginPath();ctx.moveTo(i,0);ctx.lineTo(i+H,H);ctx.stroke();}
     ctx.fillStyle='#08170e';ctx.beginPath();ctx.arc(hole.x,hole.y,8,0,Math.PI*2);ctx.fill();
     ctx.strokeStyle='#f5f5f0';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(hole.x,hole.y);ctx.lineTo(hole.x,hole.y-34);ctx.stroke();
     ctx.fillStyle=tok('--gold')||'#c9a24d';ctx.beginPath();ctx.moveTo(hole.x,hole.y-34);ctx.lineTo(hole.x+18,hole.y-28);ctx.lineTo(hole.x,hole.y-22);ctx.closePath();ctx.fill();
-    // aim arrow while charging: length = projected roll, tick = pace that reaches the hole
-    if(charging){var full=ball.y-hole.y,len=full*(power/100)*1.3,hue=power<60?140:power<82?45:8;
-      ctx.save();ctx.strokeStyle='hsla('+hue+',70%,60%,0.95)';ctx.fillStyle=ctx.strokeStyle;ctx.lineWidth=3;ctx.setLineDash([6,5]);
-      ctx.beginPath();ctx.moveTo(ball.x,ball.y-9);ctx.lineTo(ball.x,ball.y-9-len);ctx.stroke();ctx.setLineDash([]);
-      var ty=ball.y-9-len;ctx.beginPath();ctx.moveTo(ball.x,ty-8);ctx.lineTo(ball.x-6,ty+2);ctx.lineTo(ball.x+6,ty+2);ctx.closePath();ctx.fill();
-      ctx.font='bold 11px '+tok('--font');ctx.fillStyle='#fff';ctx.textAlign='left';ctx.fillText((len/full*30).toFixed(0)+' ft',ball.x+12,Math.max(12,ty+4));
-      ctx.strokeStyle='rgba(255,255,255,0.6)';ctx.lineWidth=1;ctx.setLineDash([]);var py=ball.y-9-full;ctx.beginPath();ctx.moveTo(ball.x-14,py);ctx.lineTo(ball.x+14,py);ctx.stroke();
-      ctx.restore();}
-    // celebration: ripple + confetti after a made putt
+    // aim line (idle) and power arrow (charging)
+    if(show&&!rolling){var len=charging?maxRoll()*(power/100):Math.min(dist(),60),dx=Math.cos(aim),dy=Math.sin(aim);
+      var hue=140;if(charging){var d=dist(),r=len/d;hue=r<0.9?140:r<1.12?45:8;}
+      ctx.save();ctx.strokeStyle=charging?'hsla('+hue+',70%,60%,0.95)':'rgba(255,255,255,0.5)';ctx.fillStyle=ctx.strokeStyle;ctx.lineWidth=charging?3:2;ctx.setLineDash([6,5]);
+      ctx.beginPath();ctx.moveTo(ball.x+dx*9,ball.y+dy*9);ctx.lineTo(ball.x+dx*(9+len),ball.y+dy*(9+len));ctx.stroke();ctx.setLineDash([]);
+      var tx=ball.x+dx*(9+len),ty=ball.y+dy*(9+len);ctx.translate(tx,ty);ctx.rotate(aim+Math.PI/2);ctx.beginPath();ctx.moveTo(0,-8);ctx.lineTo(-6,2);ctx.lineTo(6,2);ctx.closePath();ctx.fill();ctx.restore();
+      if(charging){ctx.save();ctx.font='bold 11px '+tok('--font');ctx.fillStyle='#fff';ctx.textAlign='center';ctx.fillText((len*FT).toFixed(0)+' ft',Math.min(W-20,Math.max(20,tx)),Math.max(12,ty-14));ctx.restore();}
+    }
     if(fx){var k=(performance.now()-fx.t0)/900;if(k<1){
       ctx.save();ctx.strokeStyle='rgba(255,255,255,'+(0.8*(1-k))+')';ctx.lineWidth=2;ctx.beginPath();ctx.arc(hole.x,hole.y,8+k*34,0,Math.PI*2);ctx.stroke();
       fx.p.forEach(function(q){var t=k*1.1;var x=hole.x+q.vx*t*60,y=hole.y+q.vy*t*60+120*t*t;ctx.fillStyle=q.c;ctx.globalAlpha=Math.max(0,1-k);ctx.fillRect(x-2,y-2,4,4);});
@@ -390,20 +392,22 @@ ol.rank-list li span{width:1.4em;color:var(--soft);font-variant-numeric:tabular-
       if(sink)requestAnimationFrame(draw);}
   }
   function stats(){document.getElementById('putts').textContent=putts;document.getElementById('made').textContent=made;document.getElementById('streak').textContent=streak;}
-  function start(e){if(rolling)return;e.preventDefault();charging=true;power=0;var t0=performance.now();
+  function setAim(e){if(rolling)return;var r=cv.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;aim=Math.atan2(y-ball.y,x-ball.x);if(!charging)draw();}
+  function start(e){if(rolling)return;e.preventDefault();if(e.clientX!==undefined)setAim(e);charging=true;power=0;var t0=performance.now();
     (function tick(now){if(!charging)return;power=Math.min(100,(now-t0)/1400*100);powerEl.style.width=power+'%';draw();chargeT=requestAnimationFrame(tick);})(t0);}
   function release(){if(!charging)return;charging=false;cancelAnimationFrame(chargeT);putt(power);}
   function putt(p){
-    putts++;rolling=true;var full=ball.y-hole.y,travel=full*(p/100)*1.3,y0=ball.y,y1=y0-travel,dur=reduce?0:800+travel*2,t0=performance.now();
-    function fin(){var off=Math.abs(y1-hole.y),ft=off/full*30,sunk=off<8;
-      if(sunk){ball.y=hole.y;sink=performance.now();var cols=['#fff','#d3a24d','#4fa274','#e2604b'];fx={t0:performance.now(),p:Array.from({length:14},function(_,i){var a=i/14*Math.PI*2;return {vx:Math.cos(a)*(0.8+Math.random()*0.6),vy:Math.sin(a)*(0.8+Math.random()*0.6)-1.2,c:cols[i%4]};})};made++;streak++;msg.textContent=streak>2?'ok you\'re cooking. '+streak+' in a row.':'drained it.';}
-      else{streak=0;msg.textContent=(y1<hole.y?'way past it. ':'left it short. ')+ft.toFixed(1)+' ft away.';}
-      stats();draw();setTimeout(function(){show=true;sink=0;ball.y=y0;rolling=false;powerEl.style.width='0';draw();},sunk?1100:1300);}
-    if(!dur){ball.y=Math.max(10,y1);draw();fin();return;}
-    (function roll(now){var k=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-k,3);ball.y=Math.max(10,y0-travel*e);draw();if(k<1)requestAnimationFrame(roll);else fin();})(t0);
+    putts++;rolling=true;var travel=maxRoll()*(p/100),x0=ball.x,y0=ball.y,dx=Math.cos(aim),dy=Math.sin(aim),dur=reduce?0:800+travel*2,t0=performance.now();
+    var tx=x0+dx*travel,ty=y0+dy*travel,offHole=Math.hypot(tx-hole.x,ty-hole.y),sunk=offHole<9;
+    function fin(){
+      if(sunk){ball.x=hole.x;ball.y=hole.y;sink=performance.now();var cols=['#fff','#d3a24d','#4fa274','#e2604b'];fx={t0:performance.now(),p:Array.from({length:14},function(_,i){var a=i/14*Math.PI*2;return {vx:Math.cos(a)*(0.8+Math.random()*0.6),vy:Math.sin(a)*(0.8+Math.random()*0.6)-1.2,c:cols[i%4]};})};made++;streak++;msg.textContent=streak>2?'ok you\'re cooking. '+streak+' in a row.':'drained it.';}
+      else{streak=0;var ft=offHole*FT,along=(tx-x0)*(hole.x-x0)+(ty-y0)*(hole.y-y0),d=dist();msg.textContent=(along>d*d?'ran it past. ':along<d*d*0.85?'left it short. ':'missed the line. ')+ft.toFixed(1)+' ft away.';}
+      stats();draw();setTimeout(function(){show=true;sink=0;placeHole();rolling=false;powerEl.style.width='0';draw();},sunk?1100:1300);}
+    if(!dur){ball.x=tx;ball.y=ty;draw();fin();return;}
+    (function roll(now){var k=Math.min(1,(now-t0)/dur),e=1-Math.pow(1-k,3);ball.x=Math.min(W-6,Math.max(6,x0+dx*travel*e));ball.y=Math.min(H-6,Math.max(6,y0+dy*travel*e));draw();if(k<1)requestAnimationFrame(roll);else fin();})(t0);
   }
-  cv.addEventListener('pointerdown',start);window.addEventListener('pointerup',release);window.addEventListener('pointercancel',release);
-  cv.addEventListener('keydown',function(e){if(e.code==='Space'&&!charging)start(e);});cv.addEventListener('keyup',function(e){if(e.code==='Space')release();});
+  cv.addEventListener('pointerdown',start);cv.addEventListener('pointermove',function(e){if(charging||!rolling)setAim(e);});window.addEventListener('pointerup',release);window.addEventListener('pointercancel',release);
+  cv.addEventListener('keydown',function(e){if(e.code==='Space'&&!charging)start(e);if(e.code==='ArrowLeft'){aim-=0.04;draw();}if(e.code==='ArrowRight'){aim+=0.04;draw();}});cv.addEventListener('keyup',function(e){if(e.code==='Space')release();});
   window.addEventListener('resize',size);size();stats();
 })();
 </script>
